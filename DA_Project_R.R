@@ -83,7 +83,7 @@ plot_density(bands3[,-39],
              ggtheme = theme_bw())
 
 # d. Side-by-side boxplots
-plot_boxplot(bands3, by='grain_screened')
+plot_boxplot(bands3, by='band_type')
 
 # e. Variables summaries 
 # ???
