@@ -6,3 +6,6 @@ output: html_document
 ---
 
 
+# Quelles sont les variables qui influence la présence de tâches ?
+# Comment moduler les variables pour optimiser la combinaison 
+# Pourquoi utiliser une imprimante plutôt qu'ume autre, ou alors une autre encre ?
