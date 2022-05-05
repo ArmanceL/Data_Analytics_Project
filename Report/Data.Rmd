@@ -5,8 +5,8 @@ date: "05/05/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, echo = FALSE, message = FALSE}
+source(here::here("scripts/setup.R"))
 ```
 
 bands3 <- read.csv2("bands3.csv")
