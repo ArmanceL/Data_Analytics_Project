@@ -9,3 +9,33 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+bands3 <- read.csv2("bands3.csv")
+
+bands3$job_number <- as.character(bands3$job_number)
+bands3$press <- as.character(bands3$press)
+bands3$unit_number <- as.character(bands3$unit_number)
+
+bands3$proof_cut <- as.numeric(bands3$proof_cut)
+bands3$viscosity <- as.numeric(bands3$viscosity)
+bands3$caliper <- as.numeric(bands3$caliper)
+bands3$ink_temperature <- as.numeric(bands3$ink_temperature)
+bands3$humidity <- as.numeric(bands3$humidity)
+bands3$roughness <- as.numeric(bands3$roughness)
+bands3$blade_pressure <- as.numeric(bands3$blade_pressure)
+bands3$varnish_pct <- as.numeric(bands3$varnish_pct)
+bands3$press_speed <- as.numeric(bands3$press_speed)
+bands3$ink_pct <- as.numeric(bands3$ink_pct)
+bands3$solvent_pct <- as.numeric(bands3$solvent_pct)
+bands3$ESA_voltage <- as.numeric(bands3$ESA_voltage)
+bands3$ESA_amperage <- as.numeric(bands3$ESA_amperage)
+bands3$wax <- as.numeric(bands3$wax)
+bands3$hardener <- as.numeric(bands3$hardener)
+bands3$roller_durometer <- as.numeric(bands3$roller_durometer)
+bands3$current_density <- as.numeric(bands3$current_density)
+bands3$anode_space_ratio <- as.numeric(bands3$anode_space_ratio)
+bands3$chrome_content <- as.numeric(bands3$chrome_content)
+
+
+index<- c(5,7,10,11,13:16,18:31,34:40)
+bands3_reduced <- bands3%>%
+  select(index)
