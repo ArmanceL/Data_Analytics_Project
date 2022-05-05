@@ -6,9 +6,9 @@ output: html_document
 ---
 
 ```{r, echo = FALSE, message = FALSE}
-source(here::here("scripts/setup.R"))
+source(here::here("Scripts/SetUp.R"))
 ```
-
+```{r}
 bands3 <- read.csv2("bands3.csv")
 
 bands3$job_number <- as.character(bands3$job_number)
@@ -39,3 +39,4 @@ bands3$chrome_content <- as.numeric(bands3$chrome_content)
 index<- c(5,7,10,11,13:16,18:31,34:40)
 bands3_reduced <- bands3%>%
   select(index)
+```
