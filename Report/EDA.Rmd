@@ -39,8 +39,8 @@ dfSummary(bands3_reduced, style = "grid")
 # DataExpolrer library
 
 ```{r }
-introduce(bands3_reduced[,-29])
-plot_intro(bands3_reduced[,-29])
+introduce(bands3_reduced)
+plot_intro(bands3_reduced)
 ```
 
 # Missing observations
@@ -56,24 +56,32 @@ n.complete/nrows
 ```
 
 ```{r }
-plot_missing(bands3_reduced[,-30])
+plot_missing(bands3_reduced)
 ```
 
 # 1. We plot the numerical variables: 
+
 ```{r }
-plot_histogram(bands3_reduced[,-29]) #Histogram
-
-plot_density(bands3[,-30],
-             ggtheme = theme_bw()) # Density plots
-
-plot_boxplot(bands3_reduced, by = '',  ncol = 2,
-             title = "Side-by-side boxplots") # Boxplot
+plot_histogram(bands3_reduced)
 ```
 
+```{r }
+plot_density(bands3_reduced,
+             ggtheme = theme_bw()) # Density plots
+```
+
+```{r}
+plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
+             title = "Side-by-side boxplots") # Boxplot
+
+```
+
+
 # 2. We plot the categorical variables: 
+
 ```{r}
 bands3_reduced %>%
-  keep(is.factor) %>%
+  keep(is.character) %>%
   gather() %>%
   ggplot(aes(value)) +
   facet_wrap(~ key, scales = "free") +
@@ -83,108 +91,117 @@ bands3_reduced %>%
 
 ```{r}
 ggplot(bands3_reduced) +
-  geom_bar(aes(x = Mountain_range))
+  geom_bar(aes(x = cylinder_size))
 ```
+--> changer la variable du x pour faire apparaitre un autre graphique mais meme chose aue graphique précédent. 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# d. Side-by-side boxplots
-???
-
-# e. Variables summaries 
-???
+# e. Variables summaries of quantitative variables 
 ```{r }
-quanti<-1:30
+quali <- c(29,1:11)
+quanti<-12:28
 mat<-matrix(0, length(quanti), 7)
 colnames(mat)<-c("Min.", "1st Qu.", "Median", "Mean", "Sd", "3rd Qu.", "Max.")
 rownames(mat)<-names(bands3_reduced)[quanti]
-mat[,1]<-apply(bands3_reduced[,quanti], 2, min)
-mat[,2]<-apply(bands3_reduced[,quanti], 2, quantile, 0.25)
-mat[,3]<-apply(bands3_reduced[,quanti], 2, median)
-mat[,4]<-apply(bands3_reduced[,quanti], 2, mean)
-mat[,5]<-apply(bands3_reduced[,quanti], 2, sd)
-mat[,6]<-apply(bands3_reduced[,quanti], 2, quantile, 0.75)
-mat[,7]<-apply(bands3_reduced[,quanti], 2, max)
+mat[,1]<-apply(bands3_reduced[,quanti], 2, min, na.rm=TRUE)
+mat[,2]<-apply(bands3_reduced[,quanti], 2, quantile, 0.25, na.rm=TRUE)
+mat[,3]<-apply(bands3_reduced[,quanti], 2, median, na.rm=TRUE)
+mat[,4]<-apply(bands3_reduced[,quanti], 2, mean, na.rm=TRUE)
+mat[,5]<-apply(bands3_reduced[,quanti], 2, sd, na.rm=TRUE)
+mat[,6]<-apply(bands3_reduced[,quanti], 2, quantile, 0.75, na.rm=TRUE)
+mat[,7]<-apply(bands3_reduced[,quanti], 2, max, na.rm=TRUE)
 print(round(mat, 2))
 ```
 
+
 # f. Pairwise comparison
-```{r }
-bands3.quant <- bands3[,quanti]
-plot_correlation(bands3.quant, type = 'c', cor_args = list('use'='complete.obs'))
-pairs(bands3.quant)
+
+Only quantitative variables: 
+```{r}
+bands3_reduced.quant<-bands3_reduced[,quanti]
 ```
-???
-```{r }
-pairs.panels(bands3.quant)
-ggpairs(bands3)
+Correlation plot between quantitative variables :(faut-il séparer variables continues et discretes ?? )
+```{r}
+plot_correlation(bands3_reduced.quant, type= 'c', cor_args = list( 'use' = 'complete.obs'))
 ```
-???
-```{r }
-ggpairs(bands3[,-39], ggplot2::aes())
+No correlation, independant variables except 'ink_pct' & 'varnish_pct' (nagatively correlated) . 
+
+```{r}
+pairs(bands3_reduced.quant)
 ```
-???
+
 ```{r }
-cor(bands3.quant)
+pairs.panels(bands3_reduced.quant)
 ```
-???
+
+```{r}
+ggpairs(bands3_reduced.quant)
+```
+
 ```{r }
-corrplot(cor(bands3.quant))
+#ggpairs(bands3_reduced, ggplot2::aes(colour=band_type))
 ```
-???
+--> trop long a run et pas sur que ca marche, rien ne s'affiche mais pas vraiment utile je crois 
+
 ```{r }
-d<-correlate(bands3.quant)         
-d %>%
-+   shave() %>% # Remove the upper triangle
-+   fashion()
+#cor(bands3_reduced.quant)
 ```
-???
+--> sort que des NA mais inutile car meme chose que le plot_correlation plus haut 
+
+```{r }
+#corrplot(cor(bands3_reduced.quant))
+```
+--> juste une autre facon de montrer les correlations 
+
+```{r }
+d<-correlate(bands3_reduced.quant)         
+#d %>%
+#+   shave() %>% # Remove the upper triangle
+#+   fashion()
+```
+
+
 ```{r }
 d %>% network_plot(min_cor=.1)
 ```
-???
+
+
 ```{r }
-corrplot.mixed(cor(bands3.quant), order="hclust", tl.col="black")
+#corrplot.mixed(cor(bands3_reduced.quant), order="hclust", #tl.col="black")
 ```
-???
+--> encore un autre corrplot
+
 ```{r }
-ggcorrplot(cor(bands3.quant), p.mat=cor_pmat(bands3[,quanti]), hc.order=TRUE, type='lower')
+#ggcorrplot(cor(bands3.quant), p.mat=cor_pmat(bands3[,quanti]), #hc.order=TRUE, type='lower')
 ```
-???
+--> un autre, en soit on peut garder seulement le premier corrplot
+
 
 ## 2.2 Inspected library
 
 ```{r }
-x<-inspect_types(bands3[,-39])
+x<-inspect_types(bands3_reduced)
 show_plot(x, col_palette=2)
-x<-inspect_na(bands3[,-39])
+```
+We have 17 numerical variables and 11 character. 
+
+```{r}
+x<-inspect_na(bands3_reduced)
 show_plot(x, col_palette=5)
-x<-inspect_num(bands3[,-39])
+```
+
+```{r}
+x<-inspect_num(bands3_reduced)
 show_plot(x, col_palette=3)
-x<-inspect_cat(bands3[,-39]) 
+```
+
+```{r}
+x<-inspect_cat(bands3_reduced) 
 show_plot(x)
-x<-inspect_cor(bands3[,-39])
+```
+
+```{r}
+x<-inspect_cor(bands3_reduced)
 show_plot(x, col_palette=4)
 ```
 
