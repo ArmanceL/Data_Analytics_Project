@@ -5,37 +5,13 @@ date: "4/20/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, echo = FALSE, message = FALSE}
+source(here::here("Scripts/SetUp.R"))
 ```
+
 
 ### EDA
 
-Download useful R packages
-```{r}
-library(DT)
-library(Hmisc)  
-library(tidyverse)
-library(tidyquant)
-library(ggthemes)
-library(RColorBrewer)
-library(corrplot)
-library(psych)
-library(GGally)
-library(corrr)
-library(corrplot)
-library(ggcorrplot)
-library(kableExtra)
-library(DataExplorer)
-library(inspectdf)
-```
-
-## 1. Data preparation
-# 1.1 Loading data into R
- 
-```{r }
-bands3 <- read.csv2("bands3.csv")
-```
 
 # 1.2 Response attribute transformation
  
