@@ -4,10 +4,10 @@
 
 # load the required packages
 packages <- c(
-  "tidyverse", "readxl", #for wrangling
-  "dplyr",  "lubridate","DataExplorer","summarytools","Hmisc",
-  "ggplot2", "naniar", "patchwork", "FactoMineR",
-  "factoextra", "corrplot", "GGally", #for plotting
+  "tidyverse","tidyquant", "readxl", #for wrangling
+  "dplyr",  "lubridate","DataExplorer","summarytools","Hmisc","DT","psych",
+  "ggplot2", "ggthemes", "naniar", "patchwork", "FactoMineR","RColorBrewer",
+  "factoextra", "corrplot", "GGally", "corrr", "ggcorrplot", #for plotting
   "nnet", "caret", "neuralnet", # for Neural Network 
   "randomForest","naivebayes",
   "DT","tidyquant","ggthemes","RColorBrewer","corrr","ggcorrplot",
