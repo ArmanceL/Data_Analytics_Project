@@ -22,6 +22,12 @@ n = ROW = 540 observartions
 p = COLUMN = 29 variables/characteristics
 
 ## Data structure and summary
+
+```{r }
+x<-inspect_types(bands3_reduced)
+show_plot(x, col_palette=2)
+```
+We have 17 numerical variables and 11 character. 
  
 ```{r }
 str(bands3_reduced)
@@ -43,20 +49,23 @@ introduce(bands3_reduced)
 plot_intro(bands3_reduced)
 ```
 
+
 # Missing observations
 ```{r }
 nrows <- nrow(bands3_reduced)
 n.missing <- rowSums(is.na(bands3_reduced))
 sum(n.missing > 0)/nrows
 ```
-
+0.4796296
 ```{r }
 n.complete <- sum(complete.cases(bands3_reduced))
 n.complete/nrows
 ```
+0.5203704
 
-```{r }
-plot_missing(bands3_reduced)
+```{r}
+x<-inspect_na(bands3_reduced)
+show_plot(x, col_palette=5)
 ```
 
 # 1. We plot the numerical variables: 
@@ -89,12 +98,6 @@ bands3_reduced %>%
   coord_flip()
 ```
 
-```{r}
-ggplot(bands3_reduced) +
-  geom_bar(aes(x = cylinder_size))
-```
---> changer la variable du x pour faire apparaitre un autre graphique mais meme chose aue graphique précédent. 
-
 
 # e. Variables summaries of quantitative variables 
 ```{r }
@@ -126,84 +129,6 @@ plot_correlation(bands3_reduced.quant, type= 'c', cor_args = list( 'use' = 'comp
 ```
 No correlation, independant variables except 'ink_pct' & 'varnish_pct' (nagatively correlated) . 
 
-```{r}
-pairs(bands3_reduced.quant)
-```
-
-```{r }
-pairs.panels(bands3_reduced.quant)
-```
-
-```{r}
-ggpairs(bands3_reduced.quant)
-```
-
-```{r }
-#ggpairs(bands3_reduced, ggplot2::aes(colour=band_type))
-```
---> trop long a run et pas sur que ca marche, rien ne s'affiche mais pas vraiment utile je crois 
-
-```{r }
-#cor(bands3_reduced.quant)
-```
---> sort que des NA mais inutile car meme chose que le plot_correlation plus haut 
-
-```{r }
-#corrplot(cor(bands3_reduced.quant))
-```
---> juste une autre facon de montrer les correlations 
-
-```{r }
-d<-correlate(bands3_reduced.quant)         
-#d %>%
-#+   shave() %>% # Remove the upper triangle
-#+   fashion()
-```
-
-
-```{r }
-d %>% network_plot(min_cor=.1)
-```
-
-
-```{r }
-#corrplot.mixed(cor(bands3_reduced.quant), order="hclust", #tl.col="black")
-```
---> encore un autre corrplot
-
-```{r }
-#ggcorrplot(cor(bands3.quant), p.mat=cor_pmat(bands3[,quanti]), #hc.order=TRUE, type='lower')
-```
---> un autre, en soit on peut garder seulement le premier corrplot
-
-
-## 2.2 Inspected library
-
-```{r }
-x<-inspect_types(bands3_reduced)
-show_plot(x, col_palette=2)
-```
-We have 17 numerical variables and 11 character. 
-
-```{r}
-x<-inspect_na(bands3_reduced)
-show_plot(x, col_palette=5)
-```
-
-```{r}
-x<-inspect_num(bands3_reduced)
-show_plot(x, col_palette=3)
-```
-
-```{r}
-x<-inspect_cat(bands3_reduced) 
-show_plot(x)
-```
-
-```{r}
-x<-inspect_cor(bands3_reduced)
-show_plot(x, col_palette=4)
-```
 
 ## 2.3 Outliers
  
