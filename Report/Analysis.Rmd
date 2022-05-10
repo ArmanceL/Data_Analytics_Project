@@ -46,7 +46,7 @@ bands3_reduced.te <- bands3_reduced[-index.tr,] ## the test set
 ```{r}
 library(rpart)
 set.seed(123456)
-bands <- rpart(band_type ~ ., method = "class", data = bands3_reduced, control = rpart.control(minsplit = 4,
+bands <- rpart(band_type ~ ., method = "class", data = bands3_reduced.tr, control = rpart.control(minsplit = 4,
     cp = 1e-05), model = TRUE)
 summary(bands)
 ```
