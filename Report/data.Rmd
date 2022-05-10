@@ -9,9 +9,19 @@ output: html_document
 source(here::here("Scripts/SetUp.R"))
 ```
 
+### Part 2 : Data Preparation and structure
+
+In this first part, we will first download the data into R. Then, we will apply the necessary transformations on these data so that they can be correctly exploited for the following analysis. 
+
+The database *bands3* is initially composed of 540 observation and 40 variables.
+
+# Loading data into R
 ```{r}
 bands3 <- read.csv2(here::here("Data/bands3.csv"))
+```
 
+# Response attribute transformation 
+```{r}
 bands3$job_number <- as.character(bands3$job_number)
 bands3$press <- as.character(bands3$press)
 bands3$unit_number <- as.character(bands3$unit_number)
@@ -35,20 +45,67 @@ bands3$roller_durometer <- as.numeric(bands3$roller_durometer)
 bands3$current_density <- as.numeric(bands3$current_density)
 bands3$anode_space_ratio <- as.numeric(bands3$anode_space_ratio)
 bands3$chrome_content <- as.numeric(bands3$chrome_content)
+```
 
-
+# Database reduction 
+```{r}
 index<- c(5,7,10,11,13:16,18:31,34:40)
 bands3_reduced <- bands3%>%
   select(index)
 ```
 
-Replace all the "?" by "NA" + All the instances on same format
+After reading and understanding these variables, we realize that some of them are not necessary because they are not complete or/and do not bring any explanatory surplus to the analysis. Nous avons donc décidé de créer une nouvelle base de donnée ne contenant pas ces variables.
 
-#bands3_reduced <- bands3_reduced%>%
-  #mutate_all(~replace(., .=="?", NA))
-  
+The new database *bands3_reduced* is now composed of 540 observations and 29 variables.
+
+# Variables removed:
+- date
+- cylinder_no
+- customer
+- job_number
+- ink_color
+- blade_mfg
+- direct_steam
+- unit_number
+- ESA_voltage
+- ESA_amperage
+- anode_space_ratio
+
+# 29 Variables kept for analysis:
+- grain-screened : 
+- proof_ink : 
+- paper_type :
+- ink_type : 
+- solvent_type : 
+- cylinder_type : 
+- press_type : 
+- press : 
+- cylinder_size : 
+- location : 
+- plating_tank : 
+- proof_cut : 
+- viscosity : 
+- caliper :
+- ink_temperature : 
+- humidity :
+- roughness :
+- blad_pressure :
+- varnish_pct :
+- press_speed :
+- ink_pct :
+- solvent_pct :
+- wax :
+- hardener :
+- roller_durometer :
+- current_density :
+- anode_space_ratio :
+- chrome_content :
+- band_type :
+
+# Replace all the "?" by "NA" + All the instances on same format
 ```{r}
 bands3_reduced[bands3_reduced == "?"] <- NA
 
 bands3_reduced[, 1:11] <- lapply(bands3_reduced[, 1:11], toupper)
 ```
+
