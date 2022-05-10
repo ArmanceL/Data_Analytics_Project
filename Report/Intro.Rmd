@@ -5,7 +5,41 @@ date: "05/05/2022"
 output: html_document
 ---
 
+#### Data Analytics for Decision making 
+#### Project 2 : Quality improvment initiatives in rotogravure printing 
 
-# Quelles sont les variables qui influence la présence de tâches ?
-# Comment moduler les variables pour optimiser la combinaison 
-# Pourquoi utiliser une imprimante plutôt qu'ume autre, ou alors une autre encre ?
+Armance Larfeuille and Nina Bidet
+Teacher : J.Zuber
+
+Semester Spring 2022
+
+## Contents
+Part 1 : Introduction
+Part 2 : Exploratory Data Analysis (EDA)
+Part 3 : Models Analysis 
+Part 4 : Conclusion and recommendations 
+
+### Part 1 : Introduction
+
+This work In the framework of the course "Data Analytics for Decision Making", we have worked on this project in which we make a detailed analysis of the 'bands3' database according to the CRISP - DM method.
+Our goal is to answer our customer's questions about the presence of grooves in the cylinder at some point during the printing process that ruining his products.Thus we can give him solutions to increase the efficiency and quality of his business.
+By identifying anomalies, we will direct our advices and indications according to three main axes.
+
+1. What are the variables/parts of the printing process that influence the presence of bands ?
+2. How can we modulate these variables to obtain a combination that optimizes the process?
+3. Is there a judicious choice of printer or ink that would minimize the presence of these bands on the paper?
+
+*Context*
+
+- Problematic : Presence of grooves in the cylinders that prevent the printing process from working properly.
+
+- Printing process : First, an engraved copper cylinder is rotated in a bath of ink. The excess ink is removed and the paper is pressed against the inked image. Then, the engraved image is removed from the cylinder once the job is complete. Finally, the cylinder in re-used.
+
+*Report organization*
+
+- Data understanding 
+- Data cleaning 
+- Data preparation 
+- Modeling
+- Evaluation 
+- Conclusion and recomendations 
