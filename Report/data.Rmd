@@ -42,10 +42,13 @@ bands3_reduced <- bands3%>%
   select(index)
 ```
 
-Replace all the "?" by "NA"
+Replace all the "?" by "NA" + All the instances on same format
+
+#bands3_reduced <- bands3_reduced%>%
+  #mutate_all(~replace(., .=="?", NA))
+  
 ```{r}
-bands3_reduced <- bands3_reduced%>%
-  mutate_all(~replace(., .=="?", NA))
+bands3_reduced[bands3_reduced == "?"] <- NA
 
+bands3_reduced[, 1:11] <- lapply(bands3_reduced[, 1:11], toupper)
 ```
-
