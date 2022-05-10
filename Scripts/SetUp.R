@@ -10,7 +10,7 @@ packages <- c(
   "factoextra", "corrplot", "GGally", #for plotting
   "nnet", "caret", "neuralnet", # for Neural Network 
   "randomForest","naivebayes",
-  "DT","tidyquant","ggthemes","RColorBrewer","corrr","ggcorrplot",
-  "kableExtra","DataExplorer","inspectdf")
+  "DT","tidyquant","ggthemes","RColorBrewer","corrr","ggcorrplot","cowplot","grid","gridGraphics",
+  "kableExtra","DataExplorer","inspectdf","explore")
 
 purrr::walk(packages, library, character.only = TRUE)
