@@ -117,17 +117,26 @@ print(round(mat, 2))
 ```
 
 
-# f. Pairwise comparison
+# f. Correlation 
 
-Only quantitative variables: 
+We split numerical and categorical variables: 
 ```{r}
-bands3_reduced.quant<-bands3_reduced[,quanti]
+bands3_reduced.num<-bands3_reduced[,quanti]
+bands3_reduced.categoric <- bands3_reduced[,quali]
 ```
-Correlation plot between quantitative variables :(faut-il séparer variables continues et discretes ?? )
+
+Correlation plot between numerical variables
 ```{r}
-plot_correlation(bands3_reduced.quant, type= 'c', cor_args = list( 'use' = 'complete.obs'))
+plot_correlation(bands3_reduced.num, type= 'c', cor_args = list( 'use' = 'complete.obs'))
 ```
-No correlation, independant variables except 'ink_pct' & 'varnish_pct' (nagatively correlated) . 
+No correlation, independant variables except 'ink_pct' & 'varnish_pct' (nagatively correlated) .
+
+Relationships between continuous variables.
+```{r}
+bands3_continuous <- bands3_reduced.num[,c(3,6,8,10:13)]
+
+plot_correlation(bands3_continuous, type= 'c', cor_args = list( 'use' = 'complete.obs'))
+```
 
 
 ## 2.3 Outliers
