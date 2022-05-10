@@ -84,7 +84,39 @@ plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
              title = "Side-by-side boxplots") # Boxplot
 
 ```
+```{r}
+a<- bands3_reduced %>%
+    explore(grain_screened, target = band_type)
+b<- bands3_reduced %>%
+    explore(proof_ink, target = band_type)
+c<- bands3_reduced %>%
+    explore(paper_type, target = band_type)
+d<- bands3_reduced %>%
+    explore(ink_type, target = band_type)
+e<- bands3_reduced %>%
+    explore(press_type, target = band_type)
+f<- bands3_reduced %>%
+    explore(press, target = band_type)
+g<- bands3_reduced %>%
+    explore(location, target = band_type)
+h<- bands3_reduced %>%
+    explore(proof_cut, target = band_type)
+i<- bands3_reduced %>%
+    explore(ink_temperature, target = band_type)
+j<- bands3_reduced %>%
+    explore(roughness, target = band_type)
+k<- bands3_reduced %>%
+    explore(press_speed, target = band_type)
+l<- bands3_reduced %>%
+    explore(wax, target = band_type)
+m<- bands3_reduced %>%
+    explore(hardener, target = band_type)
 
+
+plot_grid(a, b, c, d, e, f, g, h, i, j, k, l, m, dncol = 2, nrow = 7) #affichage pas ouf, à revoir
+
+```
+grain_screened, proof_ink, paper_type, ink_type, press_type, press, location, proof_cut, ink_temperature, roughness,  press_speed, wax, hardener, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
 
 # 2. We plot the categorical variables: 
 
