@@ -15,9 +15,10 @@ Semester Spring 2022
 
 ## Contents
 Part 1 : Introduction
-Part 2 : Exploratory Data Analysis (EDA)
-Part 3 : Models Analysis 
-Part 4 : Conclusion and recommendations 
+Part 2 : Data preparation
+Part 3 : Exploratory Data Analysis (EDA)
+Part 4 : Models Analysis 
+Part 5 : Conclusion and recommendations 
 
 ### Part 1 : Introduction
 
