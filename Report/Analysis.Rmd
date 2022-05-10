@@ -8,4 +8,51 @@ output: html_document
 ```{r, echo = FALSE, message = FALSE}
 source(here::here("Scripts/SetUp.R"))
 ```
+## Splitting the data into Traning set and Test set 
 
+```{r}
+set.seed(123) ## for replication purpose
+## the index of the rows that will be in the training set
+index.tr <- sample(1:nrow(bands3_reduced), replace=FALSE,
+                   size=0.75*nrow(bands3_reduced))
+bands3_reduced.tr <- bands3_reduced[index.tr,] ## the training set
+bands3_reduced.te <- bands3_reduced[-index.tr,] ## the test set
+```
+
+## Balancing the Training set : PAS BESOIN POUR L'INSTANT
+
+```{r}
+#band1 <- min(table(bands3_reduced.tr$band_type)) ## 171
+## the "band" cases
+#data.tr.band1 <- filter(bands3_reduced.tr, band_type=="band")
+## the "noband" cases
+#data.tr.band2 <- filter(bands3_reduced.tr, band_type=="noband")
+
+## sub-sample 171 instances from the number of "noband" cases
+#index.band2 <- sample(size=band1, 
+                           x=1:nrow(data.tr.band2), 
+                           replace=FALSE)
+
+  
+## Bind all the "Central Andes" and the sub-sampled "Central Pyrenees" 
+## and the sub-sampled "Sierra de Guadarrama"
+#bands3_reduced.tr <- data.frame(rbind(data.tr.band1,
+                                     data.tr.band2[index.band2,])) 
+## The cases are now balanced
+#table(bands3_reduced.tr$band_type)
+```
+## CART model 
+
+```{r}
+library(rpart)
+set.seed(123456)
+bands <- rpart(band_type ~ ., method = "class", data = bands3_reduced, control = rpart.control(minsplit = 4,
+    cp = 1e-05), model = TRUE)
+summary(bands)
+```
+
+```{r}
+par(pty = "s", mar = c(1, 1, 1, 1))
+plot(bands, cex = 1)
+text(bands, cex = 0.6)
+```
