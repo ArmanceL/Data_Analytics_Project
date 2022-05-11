@@ -33,6 +33,7 @@ datatable(bands3_reduced)
 ```{r }
 dfSummary(bands3_reduced, style = "grid")
 ```
+From the 'dfSummary' function, we notice that we have 42,2 % of data with "band" and 57,8% of data with "noband". We believe at this stage that it will not be necessary to balance the data, but we may have to do it later in case some models do not give satisfactory results. 
 
 ## 3.4 Data Expolrer library
 ```{r }
