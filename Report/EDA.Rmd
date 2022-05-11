@@ -9,26 +9,18 @@ output: html_document
 source(here::here("Scripts/SetUp.R"))
 ```
 
-### EDA
+### Part 3 : Exploratory Data Analysis (EDA)
 
+This section is dedicated to understanding the data. We will provide an analysis of the data set using a visual approach in order to summarize their main characteristics.
 
-# Response attribute transformation
- 
-```{r }
-n <- dim(bands3_reduced)[1]
-p <- dim(bands3_reduced)[2]
-```
-n = ROW = 540 observartions 
-p = COLUMN = 29 variables/characteristics
-
-## Data structure and summary
-
+## 3.1 Data structure and summary
 ```{r }
 x<-inspect_types(bands3_reduced)
 show_plot(x, col_palette=2)
 ```
-We have 17 numerical variables and 11 character. 
- 
+We have 17 numerical variables and 12 character variables. This will help us in the choice of the model for the analysis part.
+
+## 3.2 Data structure 
 ```{r }
 str(bands3_reduced)
 head(bands3_reduced)
@@ -37,53 +29,58 @@ describe(bands3_reduced)
 as_tibble(bands3_reduced)
 datatable(bands3_reduced)
 ```
-
+## 3.3 Data summary
 ```{r }
 dfSummary(bands3_reduced, style = "grid")
 ```
 
-# DataExpolrer library
-
+## 3.4 Data Expolrer library
 ```{r }
 introduce(bands3_reduced)
 plot_intro(bands3_reduced)
 ```
+We can see that we have more continuous columns than discrete columns, nevertheless the gap is not so big. 
+It's also interesting to see that we don't have any all missing columns and that 52% of our dataset are complete rows.
+We have 5.1% of missing observations which we will look at in more detail just below.
 
+## 3.4.1 Missing observations
 
-# Missing observations
-```{r }
-nrows <- nrow(bands3_reduced)
-n.missing <- rowSums(is.na(bands3_reduced))
-sum(n.missing > 0)/nrows
-```
-0.4796296
-```{r }
-n.complete <- sum(complete.cases(bands3_reduced))
-n.complete/nrows
-```
-0.5203704
+It is important to analyze missing data since they can bias the results and interpretations if they are too large in number or distributed in a certain way.
 
+# Missing data histogram
 ```{r}
 x<-inspect_na(bands3_reduced)
 show_plot(x, col_palette=5)
 ```
+Overall, the missing observations are not egregious in our dataset. Nevertheless, we will have to pay attention to the variable *location* in which we still find 28,9% of the columns that is NA. An analysis according to this variable will therefore probably only be slightly representative and useful. 
+We also notice that there is a tendency to have more missing observations in the numerical variables than characteristics one.
 
-# 1. We plot the numerical variables: 
+Moreover, we will now make a separate visual analysis of these two types of variables in order to extract their specificities and adapt the rest of our report accordingly. 
 
+## 3.4.2 We plot the numerical variables: 
+
+# Histograms
 ```{r }
 plot_histogram(bands3_reduced)
 ```
+??? Faire analyse ???
 
+# Density plots
 ```{r }
 plot_density(bands3_reduced,
              ggtheme = theme_bw()) # Density plots
 ```
+??? Faire analyse ???
 
+# Side-by-side boxplots
 ```{r}
 plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
              title = "Side-by-side boxplots") # Boxplot
-
 ```
+??? Faire analyse + intéeressant pour outliers ???
+
+
+# ???
 ```{r}
 a<- bands3_reduced %>%
     explore(grain_screened, target = band_type)
@@ -118,8 +115,9 @@ plot_grid(a, b, c, d, e, f, g, h, i, j, k, l, m, dncol = 2, nrow = 7) #affichage
 ```
 grain_screened, proof_ink, paper_type, ink_type, press_type, press, location, proof_cut, ink_temperature, roughness,  press_speed, wax, hardener, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
 
-# 2. We plot the categorical variables: 
+## 3.4.3 We plot the categorical variables: 
 
+# Bar graph
 ```{r}
 bands3_reduced %>%
   keep(is.character) %>%
@@ -129,9 +127,10 @@ bands3_reduced %>%
   geom_bar(stat="count") +
   coord_flip()
 ```
+Firstly, it is important to note that the data is rather balanced. 
+??? Faire analyse ???
 
-
-# e. Variables summaries of quantitative variables 
+## 4. Variables summaries of quantitative variables 
 ```{r }
 quali <- c(29,1:11)
 quanti<-12:28
@@ -149,34 +148,23 @@ print(round(mat, 2))
 ```
 
 
-# f. Correlation 
+# 5. Pairwise comparisons (matrix of scatterplots and correlations)
 
-We split numerical and categorical variables: 
+We split numerical and categorical variables 
+## 5.1 Correlation plot between numerical variables
 ```{r}
 bands3_reduced.num<-bands3_reduced[,quanti]
 bands3_reduced.categoric <- bands3_reduced[,quali]
-```
-
-Correlation plot between numerical variables
-```{r}
 plot_correlation(bands3_reduced.num, type= 'c', cor_args = list( 'use' = 'complete.obs'))
 ```
-No correlation, independant variables except 'ink_pct' & 'varnish_pct' (nagatively correlated) .
+No correlation, independant variables except 'ink_pct' & 'varnish_pct' (nagatively correlated).
 
-Relationships between continuous variables.
+## 5.2 Relationships between continuous variables
 ```{r}
 bands3_continuous <- bands3_reduced.num[,c(3,6,8,10:13)]
-
 plot_correlation(bands3_continuous, type= 'c', cor_args = list( 'use' = 'complete.obs'))
 ```
 
 
-## 2.3 Outliers
+## 6. Outliers
  
-
-
-
-
-
-
-
