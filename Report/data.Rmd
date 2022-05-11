@@ -9,7 +9,7 @@ output: html_document
 source(here::here("Scripts/SetUp.R"))
 ```
 
-### Part 2 : Data Preparation and structure
+### Part 2 : Data Preparation 
 
 In this first part, we will first download the data into R. Then, we will apply the necessary transformations on these data so that they can be correctly exploited for the following analysis. 
 
