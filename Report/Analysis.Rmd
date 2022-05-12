@@ -56,3 +56,63 @@ par(pty = "s", mar = c(1, 1, 1, 1))
 plot(bands, cex = 1)
 text(bands, cex = 0.6)
 ```
+
+
+
+## Naïve Bayes
+
+Conditional density Plots with 'usekernel=TRUE' 
+```{r}
+model.nb <- naive_bayes(band_type ~ .,
+                       data = bands3_reduced.tr %>%
+  select(!c(proof_ink, grain_screened, paper_type, ink_type, solvent_type, cylinder_type, press_type, press)), usekernel=TRUE, laplace=1)
+#par(mfrow=c(2,2))
+plot(model.nb, arg.num = list(col = 1:3,
+                             legend.position = "topright",
+                             legend.cex = 0.8),
+     prob="conditional")
+par(mfrow=c(1,1))
+model.nb
+```
+
+
+Conditional density plots with 'uskernel=FALSE'. It means that Gaussian distribution is applied to 'numeric' vairable. 
+```{r}
+model.nb2 <- naive_bayes(band_type ~ .,
+                       data = bands3_reduced.tr%>%
+  select(!c(proof_ink, grain_screened, paper_type, ink_type, solvent_type, cylinder_type, press_type, press)), usekernel=FALSE, laplace=1) 
+#par(mfrow=c(2,2))
+plot(model.nb2, arg.num = list(col = 1:3,
+                             legend.position = "topright",
+                             legend.cex = 0.8), prob="conditional")
+par(mfrow=c(1,1))
+model.nb2
+```
+
+# Confusion matrix train data set 
+```{r}
+p1 <- predict(model.nb, bands3_reduced.tr[-c(1:9)])
+(tab1 <- table(p1, bands3_reduced.tr$band_type))
+sum(diag(tab1)) / sum(tab1)
+```
+# Confusion Matrix test data set 
+```{r}
+p2 <- predict(model.nb, bands3_reduced.te[-c(1:9)])
+(tab2 <- table(p2, bands3_reduced.te$band_type))
+sum(diag(tab2)) / sum(tab2)
+```
+
+
+## K-NN Model (marche pas)
+
+We use a 2-NN to predict the test set using the training set
+```{R}
+library(caret)
+set.seed(123)
+KNN <- knn3(data=bands3_reduced,bands3_reduced.tr$band_type ~ ., k=2)
+MR.te.pred <- predict(KNN, newdata = bands3_reduced,type ="class") 
+TAB <- table(Obs=bands3_reduced.tr$band_type, Pred= BR.te.pred) # confusion matrix 
+TAB
+(ACC <- sum(diag(TAB))/sum(TAB)) # accuracy 
+```
+
