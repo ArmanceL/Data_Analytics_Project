@@ -22,7 +22,6 @@ We have 17 numerical variables and 12 character variables. This will help us in 
 
 ## 3.2 Data structure 
 ```{r }
-str(bands3_reduced)
 head(bands3_reduced)
 summary(bands3_reduced)
 describe(bands3_reduced)
