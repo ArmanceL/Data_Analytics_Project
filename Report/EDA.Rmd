@@ -81,6 +81,10 @@ plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
 
 
 # ???
+```{r }
+table(bands3_reduced$band_type) %>% kable(align = "c", col.names = c("Variable", "Frequence"))
+```
+
 ```{r}
 a<- bands3_reduced %>%
     explore(grain_screened, target = band_type)
