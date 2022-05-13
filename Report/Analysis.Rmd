@@ -67,8 +67,8 @@ bands3_reduced$plating_tank <- as.factor(bands3_reduced$plating_tank)
 bands3_reduced$band_type <- as.factor(bands3_reduced$band_type)
 
 
-library(Boruta)
-library(targets)
+#library(Boruta)
+#library(targets)
 # Decide if a variable is important or not using Boruta
 set.seed(123)
 boruta_output <- Boruta(band_type ~ . , data=bands3_reduced, doTrace=2) # perform Boruta search
