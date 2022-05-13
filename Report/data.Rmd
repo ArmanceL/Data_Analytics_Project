@@ -108,8 +108,8 @@ str(bands3_reduced)
 # Replace all the "?" by "NA" + All the instances on same format
 ```{r}
 bands3_reduced[bands3_reduced == "?"] <- NA
-bands3_reduced %>% 
-  mutate_if(is.numeric, function(current_density) ifelse(is.na(current_density), median(current_density, na.rm = T), current_density))
+#bands3_reduced %>% 
+#  mutate_if(is.numeric, function(current_density) ifelse(is.na(current_density), median(current_density, na.rm = T), current_density))
 bands3_reduced[, 1:11] <- lapply(bands3_reduced[, 1:11], toupper)
 ```
 
