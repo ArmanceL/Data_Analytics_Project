@@ -72,35 +72,35 @@ The new database *bands3_reduced* is now composed of 540 observations and 29 var
 - anode_space_ratio
 
 # 29 Variables kept for analysis:
-- grain-screened : 
-- proof_ink : 
-- paper_type :
-- ink_type : 
-- solvent_type : 
-- cylinder_type : 
-- press_type : 
-- press : 
-- cylinder_size : 
-- location : 
-- plating_tank : 
-- proof_cut : 
-- viscosity : 
-- caliper :
-- ink_temperature : 
-- humidity :
-- roughness :
-- blad_pressure :
-- varnish_pct :
-- press_speed :
-- ink_pct :
-- solvent_pct :
-- wax :
-- hardener :
-- roller_durometer :
-- current_density :
-- anode_space_ratio :
-- chrome_content :
-- band_type :
+- **grain-screened** : *chr* 
+- **proof_ink** : *chr* 
+- **paper_type** : *chr* 
+- **ink_type** : *chr* 
+- **solvent_type** : *chr* 
+- **cylinder_type** : *chr* 
+- **press_type** : *chr* 
+- **press** : *chr* 
+- **cylinder_size** : *chr* 
+- **location** : *chr* 
+- **plating_tank** : *chr* 
+- **proof_cut** : *num*
+- **viscosity** : *num*
+- **caliper** : *num*
+- **ink_temperature** : *num*
+- **humidity** : *num*
+- **roughness** : *num*
+- **blad_pressure** : *num*
+- **varnish_pct** : *num*
+- **press_speed** : *num*
+- **ink_pct** : *num*
+- **solvent_pct** : *num*
+- **wax** : *num*
+- **hardener** : *num*
+- **roller_durometer** : *num*
+- **current_density** : *num*
+- **anode_space_ratio** : *num*
+- **chrome_content** : *num*
+- **band_type** : *num*
 
 # Replace all the "?" by "NA" + All the instances on same format
 ```{r}
