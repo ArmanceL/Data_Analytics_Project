@@ -72,6 +72,9 @@ The new database *bands3_reduced* is now composed of 540 observations and 29 var
 - anode_space_ratio
 
 # 29 Variables kept for analysis:
+```{r }
+str(bands3_reduced) 
+```
 - **grain-screened** : *chr* 
 - **proof_ink** : *chr* 
 - **paper_type** : *chr* 
