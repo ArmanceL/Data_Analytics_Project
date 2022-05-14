@@ -162,8 +162,7 @@ text(bands, cex = 0.6)
 Conditional density Plots with 'usekernel=TRUE' 
 ```{r}
 model.nb <- naive_bayes(band_type ~ .,
-                       data = bands3_reduced.tr %>%
-  select(!c(proof_ink, grain_screened, paper_type, ink_type, solvent_type, cylinder_type, press_type, press)), usekernel=TRUE, laplace=1)
+                       data = bands3_reduced.tr, usekernel=TRUE, laplace=1)
 #par(mfrow=c(2,2))
 plot(model.nb, arg.num = list(col = 1:3,
                              legend.position = "topright",
@@ -177,8 +176,7 @@ model.nb
 Conditional density plots with 'uskernel=FALSE'. It means that Gaussian distribution is applied to 'numeric' vairable. 
 ```{r}
 model.nb2 <- naive_bayes(band_type ~ .,
-                       data = bands3_reduced.tr%>%
-  select(!c(proof_ink, grain_screened, paper_type, ink_type, solvent_type, cylinder_type, press_type, press)), usekernel=FALSE, laplace=1) 
+                       data = bands3_reduced.tr, usekernel=FALSE, laplace=1) 
 #par(mfrow=c(2,2))
 plot(model.nb2, arg.num = list(col = 1:3,
                              legend.position = "topright",
