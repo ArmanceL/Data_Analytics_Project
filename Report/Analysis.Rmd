@@ -187,16 +187,19 @@ model.nb2
 
 # Confusion matrix train data set 
 ```{r}
-p1 <- predict(model.nb, bands3_reduced.tr[-c(1:9)])
+p1 <- predict(model.nb, bands3_reduced.tr[quanti])
 (tab1 <- table(p1, bands3_reduced.tr$band_type))
 sum(diag(tab1)) / sum(tab1)
 ```
+The accuracy for the train data set is 75,2381 %.
+
 # Confusion Matrix test data set 
 ```{r}
-p2 <- predict(model.nb, bands3_reduced.te[-c(1:9)])
+p2 <- predict(model.nb, bands3_reduced.te[quanti])
 (tab2 <- table(p2, bands3_reduced.te$band_type))
 sum(diag(tab2)) / sum(tab2)
 ```
+The accuracy for the train data set is 66,19718 %.
 
 
 ## K-NN Model
