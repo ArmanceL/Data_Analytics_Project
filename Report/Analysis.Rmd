@@ -220,10 +220,10 @@ We use a 2-NN to predict the test set using the training set
 ```{R}
 library(caret)
 set.seed(123)
-KNN <- knn3(data=bands3_reduced,bands3_reduced.tr$band_type ~ ., k=2)
-MR.te.pred <- predict(KNN, newdata = bands3_reduced,type ="class") 
+KNN <- knn3(data=bands3_reduced.tr, band_type ~ ., k=2)
+MR.te.pred <- predict(KNN, newdata = bands3_reduced.tr,type ="class") 
 TAB <- table(Obs=bands3_reduced.tr$band_type, Pred= BR.te.pred) # confusion matrix 
 TAB
 (ACC <- sum(diag(TAB))/sum(TAB)) # accuracy 
 ```
-
+The accuracy is aroud 86,666%.
