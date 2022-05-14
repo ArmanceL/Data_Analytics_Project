@@ -214,7 +214,7 @@ sum(diag(tab2)) / sum(tab2)
 ```
 
 
-## K-NN Model (marche pas)
+## K-NN Model
 
 We use a 2-NN to predict the test set using the training set
 ```{R}
