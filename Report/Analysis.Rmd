@@ -138,20 +138,7 @@ Acc_te <- sum(diag(cmte))/sum(cmte)
 cm
 Acc
 ```
-## Relative Importance Method (MARCHE PAS) 
-```{r}
 
-library(relaimpo)
-
-regressor <- lm(band_type ~ . , data = bands3_reduced) 
-#fit lm() model
-
-relImportance <- calc.relimp(regressor, type = "lmg", rela = TRUE) 
-
-#calculate relative importance scaled to 100
-
-sort(relImportance$lmg, decreasing=TRUE) # relative importance
-```
 ## CART model 
 
 ```{r}
