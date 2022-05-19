@@ -98,46 +98,6 @@ bands3_reduced %>%
 
 ```
 
-## Boruta algo 
-
-```{r}
-#we treat the missing values 
-bands3_reduced <- bands3_reduced[complete.cases(bands3_reduced),]
-
-#convert categoric into factor
-#quali <- c(29,1:11)
-convert <- c(29, 1:11)
-#bands3_reduced[,convert] <- data.frame(apply(bands3_reduced[convert], 2, #as.factor))  --> marche pas donc 1 par 1 
-
-bands3_reduced$grain_screened <- as.factor(bands3_reduced$grain_screened)
-bands3_reduced$proof_ink <- as.factor(bands3_reduced$proof_ink)
-bands3_reduced$paper_type <- as.factor(bands3_reduced$paper_type)
-bands3_reduced$ink_type <- as.factor(bands3_reduced$ink_type)
-bands3_reduced$solvent_type <- as.factor(bands3_reduced$solvent_type)
-bands3_reduced$cylinder_type <- as.factor(bands3_reduced$cylinder_type)
-bands3_reduced$press_type <- as.factor(bands3_reduced$press_type)
-bands3_reduced$press <- as.factor(bands3_reduced$press)
-bands3_reduced$cylinder_size <- as.factor(bands3_reduced$cylinder_size)
-bands3_reduced$location <- as.factor(bands3_reduced$location)
-bands3_reduced$plating_tank <- as.factor(bands3_reduced$plating_tank)
-bands3_reduced$band_type <- as.factor(bands3_reduced$band_type)
-
-
-#library(Boruta)
-#library(targets)
-# Decide if a variable is important or not using Boruta
-set.seed(123)
-boruta_output <- Boruta(band_type ~ . , data=bands3_reduced, doTrace=2) # perform Boruta search
-
-plot(boruta_output, xlab = "", xaxt = "n")
-lz<-lapply(1:ncol(boruta_output$ImpHistory),function(i)
-boruta_output$ImpHistory[is.finite(boruta_output$ImpHistory[,i]),i])
-names(lz) <- colnames(boruta_output$ImpHistory)
-Labels <- sort(sapply(lz,median))
-axis(side = 1,las=2,labels = names(Labels),
-at = 1:ncol(boruta_output$ImpHistory), cex.axis = 0.7)
-
-```
 ## Random forest
 
 ```{r}
