@@ -60,41 +60,41 @@ Some of the models we use do not work with NAs. To deal with them, we decided to
 
 #Discrete
 #bands3_reduced %>%
-  mutate(proof_cut=replace_na(proof_cut,median(proof_cut, na.rm = TRUE)))
+  #mutate(proof_cut=replace_na(proof_cut,median(proof_cut, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(viscosity=replace_na(viscosity,median(viscosity, na.rm = TRUE)))
+  #mutate(viscosity=replace_na(viscosity,median(viscosity, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(ink_temperature=replace_na(ink_temperature,median(ink_temperature, na.rm = TRUE)))
+  #mutate(ink_temperature=replace_na(ink_temperature,median(ink_temperature, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(humidity=replace_na(humidity,median(humidity, na.rm = TRUE)))
+  #mutate(humidity=replace_na(humidity,median(humidity, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(blade_pressure=replace_na(blade_pressure,median(blade_pressure, na.rm = TRUE)))
+  #mutate(blade_pressure=replace_na(blade_pressure,median(blade_pressure, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(press_speed=replace_na(press_speed,median(press_speed, na.rm = TRUE)))
+  #mutate(press_speed=replace_na(press_speed,median(press_speed, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(roller_durometer=replace_na(roller_durometer,mean(roller_durometer, na.rm = TRUE)))
+  #mutate(roller_durometer=replace_na(roller_durometer,mean(roller_durometer, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(current_density=replace_na(current_density,median(current_density, na.rm = TRUE)))
+  #mutate(current_density=replace_na(current_density,median(current_density, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(anode_space_ratio=replace_na(anode_space_ratio,median(anode_space_ratio, na.rm = TRUE)))
+  #mutate(anode_space_ratio=replace_na(anode_space_ratio,median(anode_space_ratio, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(chrome_content=replace_na(chrome_content,median(chrome_content, na.rm = TRUE)))
+  #mutate(chrome_content=replace_na(chrome_content,median(chrome_content, na.rm = TRUE)))
 
 #Continous
 #bands3_reduced %>%
-  mutate(caliper=replace_na(caliper,median(caliper, na.rm = TRUE)))
+  #mutate(caliper=replace_na(caliper,median(caliper, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(roughness=replace_na(roughness,median(roughness, na.rm = TRUE)))
+  #mutate(roughness=replace_na(roughness,median(roughness, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(varnish_pct=replace_na(varnish_pct,median(varnish_pct, na.rm = TRUE)))
+  #mutate(varnish_pct=replace_na(varnish_pct,median(varnish_pct, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(ink_pct=replace_na(ink_pct,median(ink_pct, na.rm = TRUE)))
+  #mutate(ink_pct=replace_na(ink_pct,median(ink_pct, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(wax=replace_na(wax,median(wax, na.rm = TRUE)))
+  #mutate(wax=replace_na(wax,median(wax, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(hardener=replace_na(hardener,median(chrome_content, na.rm = TRUE)))
+  #mutate(hardener=replace_na(hardener,median(chrome_content, na.rm = TRUE)))
 #bands3_reduced %>%
-  mutate(solvent_pct=replace_na(solvent_pct,median(solvent_pct, na.rm = TRUE)))
+  #mutate(solvent_pct=replace_na(solvent_pct,median(solvent_pct, na.rm = TRUE)))
 
 ```
 
