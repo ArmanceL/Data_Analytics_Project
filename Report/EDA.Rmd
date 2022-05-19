@@ -23,7 +23,6 @@ We have 17 numerical variables and 12 character variables. This will help us in 
 ## 3.2 Data structure 
 ```{r }
 head(bands3_reduced)
-summary(bands3_reduced)
 describe(bands3_reduced)
 as_tibble(bands3_reduced)
 datatable(bands3_reduced)
@@ -171,4 +170,6 @@ plot_correlation(bands3_continuous, type= 'c', cor_args = list( 'use' = 'complet
 
 
 ## 6. Outliers
- 
+```{r}
+summary(bands3_reduced)
+``` 
