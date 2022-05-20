@@ -79,9 +79,11 @@ plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
 ??? Faire analyse + intéeressant pour outliers ???
 
 
-# ???
+# Response attribute
 ```{r }
-table(bands3_reduced$band_type) %>% kable(align = "c", col.names = c("Variable", "Frequence"))
+bands3_reduced %>%
+    ggplot(aes(x = band_type)) + geom_bar(aes(fill = factor(band_type))) + labs(color = "",
+    fill = "", x = "response", y = "count", title = "target attribute", subtitle = "(n: no band; y: band)", caption = "Print banding Problem") + theme(plot.title =element_text(size=20))+ geom_text(stat='count', aes(label=..count..), vjust=-0.2)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.show="hold" ,out.width="50%"}
