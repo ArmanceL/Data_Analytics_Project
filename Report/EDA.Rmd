@@ -74,7 +74,7 @@ plot_density(bands3_reduced,
 # Side-by-side boxplots
 ```{r}
 plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
-             title = "Side-by-side boxplots") # Boxplot
+             title = "Side-by-side boxplots", geom_boxplot_args = list("outlier.color" = "red")) # Boxplot
 ```
 ??? Faire analyse + intéeressant pour outliers ???
 
