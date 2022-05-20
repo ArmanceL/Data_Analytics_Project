@@ -84,7 +84,7 @@ plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
 table(bands3_reduced$band_type) %>% kable(align = "c", col.names = c("Variable", "Frequence"))
 ```
 
-```{r}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.show="hold" ,out.width="50%"}
 a<- bands3_reduced %>%
     explore(grain_screened, target = band_type)
 b<- bands3_reduced %>%
@@ -112,10 +112,16 @@ l<- bands3_reduced %>%
 m<- bands3_reduced %>%
     explore(hardener, target = band_type)
 
+(a / b / c + plot_annotation(title = '?'))
+(d / e   + plot_annotation(title = '?'))
+(f / g  + plot_annotation(title = '?'))
+(h / i  + plot_annotation(title = '?'))
+(j / k + plot_annotation(title = '?'))
+(l/ m + plot_annotation(title = '?'))
 
-plot_grid(a, b, c, d, e, f, g, h, i, j, k, l, m, dncol = 2, nrow = 7) #affichage pas ouf, à revoir
-
+#plot_grid(a, b, c, d, e, f, g, h, i, j, k, l, m, dncol = 2, nrow = 7) #affichage pas ouf, à revoir
 ```
+
 grain_screened, proof_ink, paper_type, ink_type, press_type, press, location, proof_cut, ink_temperature, roughness,  press_speed, wax, hardener, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
 
 ## 3.4.3 We plot the categorical variables: 
