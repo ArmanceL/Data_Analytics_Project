@@ -97,37 +97,23 @@ bands3_reduced2.te <- bands3_reduced2[-index.tr,] ## the test set
 
 ```{r}
 
-bands3_reduced.tr$grain_screened <- as.factor(bands3_reduced.tr$grain_screened)
-bands3_reduced.tr$proof_ink <- as.factor(bands3_reduced.tr$proof_ink)
-bands3_reduced.tr$paper_type <- as.factor(bands3_reduced.tr$paper_type)
-bands3_reduced.tr$ink_type <- as.factor(bands3_reduced.tr$ink_type)
-bands3_reduced.tr$solvent_type <- as.factor(bands3_reduced.tr$solvent_type)
-bands3_reduced.tr$cylinder_type <- as.factor(bands3_reduced.tr$cylinder_type)
-bands3_reduced.tr$press_type <- as.factor(bands3_reduced.tr$press_type)
-bands3_reduced.tr$press <- as.factor(bands3_reduced.tr$press)
-bands3_reduced.tr$cylinder_size <- as.factor(bands3_reduced.tr$cylinder_size)
-bands3_reduced.tr$location <- as.factor(bands3_reduced.tr$location)
-bands3_reduced.tr$plating_tank <- as.factor(bands3_reduced.tr$plating_tank)
-bands3_reduced.tr$band_type <- as.factor(bands3_reduced.tr$band_type)
+bands3_reduced2.tr$grain_screened <- as.factor(bands3_reduced2.tr$grain_screened)
+bands3_reduced2.tr$paper_type <- as.factor(bands3_reduced2.tr$paper_type)
+bands3_reduced2.tr$ink_type <- as.factor(bands3_reduced2.tr$ink_type)
+bands3_reduced2.tr$cylinder_type <- as.factor(bands3_reduced2.tr$cylinder_type)
+bands3_reduced2.tr$press_type <- as.factor(bands3_reduced2.tr$press_type)
+bands3_reduced2.tr$press <- as.factor(bands3_reduced2.tr$press)
+bands3_reduced2.tr$cylinder_size <- as.factor(bands3_reduced2.tr$cylinder_size)
+bands3_reduced2.tr$band_type <- as.factor(bands3_reduced2.tr$band_type)
 
-bands3_reduced.te$grain_screened <- as.factor(bands3_reduced.te$grain_screened)
-bands3_reduced.te$proof_ink <- as.factor(bands3_reduced.te$proof_ink)
-bands3_reduced.te$paper_type <- as.factor(bands3_reduced.te$paper_type)
-bands3_reduced.te$ink_type <- as.factor(bands3_reduced.te$ink_type)
-bands3_reduced.te$solvent_type <- as.factor(bands3_reduced.te$solvent_type)
-bands3_reduced.te$cylinder_type <- as.factor(bands3_reduced.te$cylinder_type)
-bands3_reduced.te$press_type <- as.factor(bands3_reduced.te$press_type)
-bands3_reduced.te$press <- as.factor(bands3_reduced.te$press)
-bands3_reduced.te$cylinder_size <- as.factor(bands3_reduced.te$cylinder_size)
-bands3_reduced.te$location <- as.factor(bands3_reduced.te$location)
-bands3_reduced.te$plating_tank <- as.factor(bands3_reduced.te$plating_tank)
-bands3_reduced.te$band_type <- as.factor(bands3_reduced.te$band_type)
-
-#band_type = as.factor(bands3_reduced$band_type)
-#bands3_reduced$band_type.new = band_type
-
-#band_type = as.factor(bands3_reduced.te$band_type)
-#bands3_reduced.te$band_type.new = band_type
+bands3_reduced2.te$grain_screened <- as.factor(bands3_reduced2.te$grain_screened)
+bands3_reduced2.te$paper_type <- as.factor(bands3_reduced2.te$paper_type)
+bands3_reduced2.te$ink_type <- as.factor(bands3_reduced2.te$ink_type)
+bands3_reduced2.te$cylinder_type <- as.factor(bands3_reduced2.te$cylinder_type)
+bands3_reduced2.te$press_type <- as.factor(bands3_reduced2.te$press_type)
+bands3_reduced2.te$press <- as.factor(bands3_reduced2.te$press)
+bands3_reduced2.te$cylinder_size <- as.factor(bands3_reduced2.te$cylinder_size)
+bands3_reduced2.te$band_type <- as.factor(bands3_reduced2.te$band_type)
 
 
 rf <- randomForest( band_type ~ .,data=bands3_reduced, importance = TRUE)
