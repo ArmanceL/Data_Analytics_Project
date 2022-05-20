@@ -116,8 +116,9 @@ bands3_reduced2.te$cylinder_size <- as.factor(bands3_reduced2.te$cylinder_size)
 bands3_reduced2.te$band_type <- as.factor(bands3_reduced2.te$band_type)
 
 
-rf <- randomForest( band_type ~ .,data=bands3_reduced, importance = TRUE)
-pred = predict(rf, newdata=bands3_reduced)
+rf <- randomForest(band_type ~ .,data=bands3_reduced2, importance = TRUE)
+pred = predict(rf, newdata=bands3_reduced2)
+               
                
 
 predtr <- predict(rf, newdata = bands3_reduced.tr)
