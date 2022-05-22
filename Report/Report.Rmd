@@ -1,0 +1,10 @@
+
+---
+title: "Data Analytics Project"
+author: "Banding problem"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r child = c('intro.Rmd', 'data.Rmd', 'eda.Rmd', 'analysis.Rmd', 'concl.Rmd')}
+```
