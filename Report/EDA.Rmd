@@ -86,42 +86,9 @@ bands3_reduced %>%
     fill = "", x = "response", y = "count", title = "target attribute", subtitle = "(n: no band; y: band)", caption = "Print banding Problem") + theme(plot.title =element_text(size=20))+ geom_text(stat='count', aes(label=..count..), vjust=-0.2)
 ```
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.show="hold" ,out.width="50%"}
-a<- bands3_reduced %>%
-    explore(grain_screened, target = band_type)
-b<- bands3_reduced %>%
-    explore(proof_ink, target = band_type)
-c<- bands3_reduced %>%
-    explore(paper_type, target = band_type)
-d<- bands3_reduced %>%
-    explore(ink_type, target = band_type)
-e<- bands3_reduced %>%
-    explore(press_type, target = band_type)
-f<- bands3_reduced %>%
-    explore(press, target = band_type)
-g<- bands3_reduced %>%
-    explore(location, target = band_type)
-h<- bands3_reduced %>%
-    explore(proof_cut, target = band_type)
-i<- bands3_reduced %>%
-    explore(ink_temperature, target = band_type)
-j<- bands3_reduced %>%
-    explore(roughness, target = band_type)
-k<- bands3_reduced %>%
-    explore(press_speed, target = band_type)
-l<- bands3_reduced %>%
-    explore(wax, target = band_type)
-m<- bands3_reduced %>%
-    explore(hardener, target = band_type)
-
-(a / b / c + plot_annotation(title = '?'))
-(d / e   + plot_annotation(title = '?'))
-(f / g  + plot_annotation(title = '?'))
-(h / i  + plot_annotation(title = '?'))
-(j / k + plot_annotation(title = '?'))
-(l/ m + plot_annotation(title = '?'))
-
-#plot_grid(a, b, c, d, e, f, g, h, i, j, k, l, m, dncol = 2, nrow = 7) #affichage pas ouf, à revoir
+```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.width=12, fig.height=12 ,out.width="50%"}
+bands3_reduced %>%
+  explore_all(target = band_type)
 ```
 
 grain_screened, proof_ink, paper_type, ink_type, press_type, press, location, proof_cut, ink_temperature, roughness,  press_speed, wax, hardener, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
