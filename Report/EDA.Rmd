@@ -31,7 +31,12 @@ datatable(bands3_reduced)
 ```{r }
 dfSummary(bands3_reduced, style = "grid")
 ```
-From the 'dfSummary' function, we notice that we have 42,2 % of data with "band" and 57,8% of data with "noband". We believe at this stage that it will not be necessary to balance the data, but we may have to do it later in case some models do not give satisfactory results. 
+```{r }
+bands3_reduced %>%
+    ggplot(aes(x = band_type)) + geom_bar(aes(fill = factor(band_type))) + labs(color = "",
+    fill = "", x = "response", y = "count", title = "target attribute", subtitle = "(n: no band; y: band)", caption = "Print banding Problem") + theme(plot.title =element_text(size=20))+ geom_text(stat='count', aes(label=..count..), vjust=-0.2)
+```
+From the 'dfSummary' function and the above plot, we notice that we have 42,2 % (228 observations) of data with "band" and 57,8% (312 observations) of data with "noband". We believe at this stage that it will not be necessary to balance the data, but we may have to do it later in case some models do not give satisfactory results. 
 
 ## 3.4 Data Expolrer library
 ```{r }
@@ -79,11 +84,6 @@ plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
 
 
 # Response attribute
-```{r }
-bands3_reduced %>%
-    ggplot(aes(x = band_type)) + geom_bar(aes(fill = factor(band_type))) + labs(color = "",
-    fill = "", x = "response", y = "count", title = "target attribute", subtitle = "(n: no band; y: band)", caption = "Print banding Problem") + theme(plot.title =element_text(size=20))+ geom_text(stat='count', aes(label=..count..), vjust=-0.2)
-```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.width=12, fig.height=12 ,out.width="50%"}
 bands3_reduced %>%
