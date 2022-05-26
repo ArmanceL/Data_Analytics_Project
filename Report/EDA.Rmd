@@ -98,6 +98,9 @@ Our first ideas for recommendations based on this graph : *grain_screened* : do 
 *press_type* : use "motter94" press 
 *press* :
 *proof_cut* : position the proof cut at 40 rather than 50 
+*ink_temperature* : set the temperature to 16
+*press_speed* : set the speed of the press either above 2200 or below 1500 
+*hardener* : as there is a band peak when the hardener is at 1, it is better to avoid this value 
 
 ## 3.4.3 We plot the categorical variables: 
 
