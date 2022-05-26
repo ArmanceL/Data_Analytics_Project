@@ -114,8 +114,7 @@ bands3_reduced %>%
   geom_bar(stat="count") +
   coord_flip()
 ```
-Firstly, it is important to note that the data is rather balanced. 
-??? Faire analyse ???
+Firstly, it is important to note that the data is rather balanced. Pas très util vu qu'il y a density plot au dessus ? 
 
 ## 4. Variables summaries of quantitative variables 
 ```{r }
@@ -144,7 +143,7 @@ bands3_reduced.num<-bands3_reduced[,quanti]
 bands3_reduced.categoric <- bands3_reduced[,quali]
 plot_correlation(bands3_reduced.num, type= 'c', cor_args = list( 'use' = 'complete.obs'))
 ```
-No correlation, independant variables except 'ink_pct' & 'varnish_pct' (nagatively correlated).
+No correlation, independant variables except *ink_pct* & *varnish_pct* (negatively correlated).
 
 ## 5.2 Relationships between continuous variables
 ```{r}
@@ -155,15 +154,17 @@ plot_correlation(bands3_continuous, type= 'c', cor_args = list( 'use' = 'complet
 
 ## 6. Outliers
 ```{r}
-summary(bands3_reduced)
+summary(bands3_reduced) # same que variables summary du dessus 
 ``` 
 
 ## 7. Boruta algo 
 
+We firstly need to treat the missing values and convert each variables into a factor to use the Boruta algorithm. 
 ```{r}
-#we treat the missing values 
+
 bands3_reducedNA <- bands3_reduced[complete.cases(bands3_reduced),]
-#convert categoric into factor
+
+#We convert categoric into factor
 #quali <- c(29,1:11)
 convert <- c(29, 1:11)
 #bands3_reduced[,convert] <- data.frame(apply(bands3_reduced[convert], 2, #as.factor))  --> marche pas donc 1 par 1 
@@ -180,10 +181,11 @@ bands3_reducedNA$cylinder_size <- as.factor(bands3_reducedNA$cylinder_size)
 bands3_reducedNA$location <- as.factor(bands3_reducedNA$location)
 bands3_reducedNA$plating_tank <- as.factor(bands3_reducedNA$plating_tank)
 bands3_reducedNA$band_type <- as.factor(bands3_reducedNA$band_type)
+```
 
-#library(Boruta)
-#library(targets)
-# Decide if a variable is important or not using Boruta
+This algorithm will help us to decide if a variable is important or not. 
+
+```{r}
 set.seed(123)
 boruta_output <- Boruta(band_type ~ . , data=bands3_reducedNA, doTrace=2) # perform Boruta search
 
