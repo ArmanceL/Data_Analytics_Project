@@ -80,7 +80,7 @@ Above are the distributions of the numerical variables, with histograms and dens
 plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
              title = "Side-by-side boxplots", geom_boxplot_args = list("outlier.color" = "red")) # Boxplot
 ```
-??? Faire analyse + intéeressant pour outliers ???
+We then analyzed the numerical variables in box plots, separating them between the "band" and "noband" categories, in order to identify potential differences. This also allows us to realize the presence of some outliers. Indeed, they are very numerous for some variables such as *roughness* *ink_temperature* *blade_pressure* *wax* and *hardener*. 
 
 
 # Response attribute
@@ -90,7 +90,14 @@ bands3_reduced %>%
   explore_all(target = band_type)
 ```
 
-grain_screened, proof_ink, paper_type, ink_type, press_type, press, location, proof_cut, ink_temperature, roughness,  press_speed, wax, hardener, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
+*grain_screened*, *proof_ink*, *paper_type*, *ink_type*, *press_type*, *press*, *location*, *proof_cut*, *ink_temperature*, *roughness*,  *press_speed*, *wax*, *hardener*, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
+
+Our first ideas for recommendations based on this graph : *grain_screened* : do not favour screened grain (more "no_band" without)
+*paper_type* : don't use "super" paper type, because it always produces band, favor the "coated" one. 
+*ink_type* : use coated ink
+*press_type* : use "motter94" press 
+*press* :
+*proof_cut* : position the proof cut at 40 rather than 50 
 
 ## 3.4.3 We plot the categorical variables: 
 
