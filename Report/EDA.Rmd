@@ -62,14 +62,13 @@ Moreover, we will now make a separate visual analysis of these two types of vari
 ```{r }
 plot_histogram(bands3_reduced)
 ```
-??? Faire analyse ???
 
 # Density plots
 ```{r }
 plot_density(bands3_reduced,
              ggtheme = theme_bw()) # Density plots
 ```
-??? Faire analyse ???
+Above are the distributions of the numerical variables, with histograms and density plots. Some variables, like *ink_temperature* and *press_speed* are normally distributed. Others like *current_density* or *wax* show peaks or trends for a certain value.
 
 # Side-by-side boxplots
 ```{r}
