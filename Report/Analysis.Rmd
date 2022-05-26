@@ -11,7 +11,7 @@ source(here::here("Scripts/SetUp.R"))
 
 
 ### Replace the NAs by the mean of the closest observations
-Some of the models we use do not work with NAs. To deal with them, we decided to replace the NAs by the median of their variables. 
+Some of the models we will use do not work with NAs. To deal with them, we decided to replace the NAs by the median of their variables. 
 
 ```{r}
 # Replace discrete data NA by mode and continuous data NA by median
