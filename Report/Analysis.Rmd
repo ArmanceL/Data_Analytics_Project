@@ -25,10 +25,8 @@ bands3_reduced2 <- bands3_reduced2%>%
   mutate(ink_temperature=replace_na(ink_temperature,median(ink_temperature, na.rm = TRUE)))
 bands3_reduced2 <- bands3_reduced2 %>%
   mutate(humidity=replace_na(humidity,median(humidity, na.rm = TRUE)))
-#bands3_reduced <- bands3_reduced %>%
-  #mutate(blade_pressure=replace_na(blade_pressure,median(blade_pressure, na.rm = TRUE)))
-#bands3_reduced <- bands3_reduced %>%
-  #mutate(press_speed=replace_na(press_speed,median(press_speed, na.rm = TRUE)))
+bands3_reduced2 <- bands3_reduced2 %>%
+  mutate(press_speed=replace_na(press_speed,median(press_speed, na.rm = TRUE)))
 bands3_reduced2 <- bands3_reduced2 %>%
   mutate(roller_durometer=replace_na(roller_durometer,mean(roller_durometer, na.rm = TRUE)))
 bands3_reduced2 <- bands3_reduced2 %>%
@@ -38,16 +36,13 @@ bands3_reduced2 <-bands3_reduced2 %>%
 bands3_reduced2 <- bands3_reduced2 %>%
   mutate(chrome_content=replace_na(chrome_content,median(chrome_content, na.rm = TRUE)))
 
-#Continous
-#bands3_reduced2 <- bands3_reduced2 %>%
-  #mutate(caliper=replace_na(caliper,median(caliper, na.rm = TRUE)))
-#bands3_reduced2 <- bands3_reduced2 %>%
-  #mutate(roughness=replace_na(roughness,median(roughness, na.rm = TRUE)))
-#bands3_reduced2 <- bands3_reduced2 %>%
-  #mutate(varnish_pct=replace_na(varnish_pct,median(varnish_pct, na.rm = TRUE)))
+#Continous variables 
+
+bands3_reduced2 <- bands3_reduced2 %>%
+  mutate(wax=replace_na(wax,median(wax, na.rm = TRUE)))
 bands3_reduced2 <- bands3_reduced2 %>%
   mutate(ink_pct=replace_na(ink_pct,median(ink_pct, na.rm = TRUE)))
-bands3_reduced <- bands3_reduced %>%
+bands3_reduced2 <- bands3_reduced2 %>%
   mutate(wax=replace_na(wax,median(wax, na.rm = TRUE)))
 bands3_reduced2 <- bands3_reduced2 %>%
   mutate(hardener=replace_na(hardener,median(hardener, na.rm = TRUE)))
