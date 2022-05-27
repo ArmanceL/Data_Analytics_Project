@@ -204,9 +204,12 @@ We also remove *location* as it has more than 30% of missing observations.
 ```{r}
 bands3_reduced2 <- bands3_reduced%>%
   select(c(1,3,4,6:9,12:13,15,16,20:29))
+```
 
+```{r}
 vis_miss(bands3_reduced2)
-
-
+```
+The function "vis_miss" allows us to visualize easily with this graph, all the missing observations. We notice in this graphical representation that from line 486 there is a lack of data for some variables until the last observation. We therefore take the decision to delete all the lines from the 486th for the continuation of our analysis. 
+```{r}
 bands3_reduced2 <- bands3_reduced2[-c(486:540),] 
 ````
