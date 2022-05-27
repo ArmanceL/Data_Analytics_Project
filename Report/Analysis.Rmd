@@ -10,9 +10,9 @@ source(here::here("Scripts/SetUp.R"))
 ```
 
 
-### Replace the NAs by the mean of the closest observations
+### Replace the NAs by the median of each column's variable 
 Some of the models we will use do not work with NAs. To deal with them, we decided to replace the NAs by the median of their variables. 
-
+Concerning missing values in categorical variables, we will eliminate the rows containing NA for these categorical variables. 
 ```{r}
 
 #Discrete variables 
@@ -49,12 +49,13 @@ bands3_reduced2 <- bands3_reduced2 %>%
 bands3_reduced2 <- bands3_reduced2 %>%
   mutate(solvent_pct=replace_na(solvent_pct,median(solvent_pct, na.rm = TRUE)))
 
-
+bands3_reduced2 <- na.omit(bands3_reduced2)
 ```
+Out of the 540 observations in the database, we now have 467, without missing values. We can now proceed with our analysis. 
+
 ## Splitting the data into Traning set and Test set 
 
 ```{r}
-bands3_reduced2 <- na.omit(bands3_reduced2)
 set.seed(123) ## for replication purpose
 ## the index of the rows that will be in the training set
 index.tr <- sample(1:nrow(bands3_reduced2), replace=FALSE,
