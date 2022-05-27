@@ -111,27 +111,39 @@ bands3_reduced2.te$press <- as.factor(bands3_reduced2.te$press)
 bands3_reduced2.te$cylinder_size <- as.factor(bands3_reduced2.te$cylinder_size)
 bands3_reduced2.te$band_type <- as.factor(bands3_reduced2.te$band_type)
 
+rf <- randomForest(band_type ~ .,data=bands3_reduced2.tr, importance = TRUE)
+predtr <- predict(rf, newdata = bands3_reduced2.tr[-21])
+predte <-  predict(rf, newdata= bands3_reduced2.te[-21])
+cmtr <-   table(bands3_reduced2.tr[,21], predtr)
+cmte <-  table(bands3_reduced2.te[,21], predte)
 
-rf <- randomForest(band_type ~ .,data=bands3_reduced2, importance = TRUE)
-pred = predict(rf, newdata=bands3_reduced2)
-               
-               
-
-predtr <- predict(rf, newdata = bands3_reduced.tr)
-predte <-  predict(rf, newdata=bands3_reduced.te)
-cmtr <-   table(bands3_reduced.tr, predtr)      #impossible d’utiliser xtfrm sur un tableau de données (data frame)
-
-cmte <-  table(bands3_reduced.te, predte) #impossible d’utiliser xtfrm sur un tableau de données (data frame)
-> 
 varImpPlot(rf, cex = 0.65)
-importance(rf)
+
+print(rf)
+```
+
+```{r}
+#importance(rf)
 Acc_tr <- sum(diag(cmtr))/sum(cmtr)
 Acc_te <- sum(diag(cmte))/sum(cmte)
-
-
-cm
-Acc
 ```
+```{r}
+# Confusion Matrix of the Random Forest model on training set 
+cmtr
+
+cat("Accuracy of the train set",Acc_tr)
+```
+The first table is the confusion matrix of the Random Forest model on the training set. Therefore it is normal to have an accuracy of 1 since the model already knows the observations. 
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# Confusion Matrix of the Random Forest model on test set
+cmte
+
+cat("Accuracy of the test set", Acc_te)
+```
+Then the second table is the confusion matrix of the random forest model on the test set. We now have an accuracy of 0,7435897.
+
+
 
 ## CART model 
 
