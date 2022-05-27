@@ -51,7 +51,20 @@ bands3_reduced2 <- bands3_reduced2 %>%
 
 bands3_reduced2 <- na.omit(bands3_reduced2)
 ```
-Out of the 540 observations in the database, we now have 467, without missing values. We can now proceed with our analysis. 
+Out of the 540 observations in the database, we now have 467, without missing values.
+We now convert all categorical variables into a factor. 
+
+```{r}
+bands3_reduced2$grain_screened <- as.factor(bands3_reduced2$grain_screened)
+bands3_reduced2$paper_type <- as.factor(bands3_reduced2$paper_type)
+bands3_reduced2$ink_type <- as.factor(bands3_reduced2$ink_type)
+bands3_reduced2$cylinder_type <- as.factor(bands3_reduced2$cylinder_type)
+bands3_reduced2$press_type <- as.factor(bands3_reduced2$press_type)
+bands3_reduced2$press <- as.factor(bands3_reduced2$press)
+bands3_reduced2$cylinder_size <- as.factor(bands3_reduced2$cylinder_size)
+bands3_reduced2$band_type <- as.factor(bands3_reduced2$band_type)
+```
+We can now proceed with our analysis.
 
 ## Splitting the data into Traning set and Test set 
 
@@ -92,24 +105,7 @@ bands3_reduced2.te <- bands3_reduced2[-index.tr,] ## the test set
 ## Random forest
 
 ```{r}
-
-bands3_reduced2.tr$grain_screened <- as.factor(bands3_reduced2.tr$grain_screened)
-bands3_reduced2.tr$paper_type <- as.factor(bands3_reduced2.tr$paper_type)
-bands3_reduced2.tr$ink_type <- as.factor(bands3_reduced2.tr$ink_type)
-bands3_reduced2.tr$cylinder_type <- as.factor(bands3_reduced2.tr$cylinder_type)
-bands3_reduced2.tr$press_type <- as.factor(bands3_reduced2.tr$press_type)
-bands3_reduced2.tr$press <- as.factor(bands3_reduced2.tr$press)
-bands3_reduced2.tr$cylinder_size <- as.factor(bands3_reduced2.tr$cylinder_size)
-bands3_reduced2.tr$band_type <- as.factor(bands3_reduced2.tr$band_type)
-
-bands3_reduced2.te$grain_screened <- as.factor(bands3_reduced2.te$grain_screened)
-bands3_reduced2.te$paper_type <- as.factor(bands3_reduced2.te$paper_type)
-bands3_reduced2.te$ink_type <- as.factor(bands3_reduced2.te$ink_type)
-bands3_reduced2.te$cylinder_type <- as.factor(bands3_reduced2.te$cylinder_type)
-bands3_reduced2.te$press_type <- as.factor(bands3_reduced2.te$press_type)
-bands3_reduced2.te$press <- as.factor(bands3_reduced2.te$press)
-bands3_reduced2.te$cylinder_size <- as.factor(bands3_reduced2.te$cylinder_size)
-bands3_reduced2.te$band_type <- as.factor(bands3_reduced2.te$band_type)
+set.seed(123)
 
 rf <- randomForest(band_type ~ .,data=bands3_reduced2.tr, importance = TRUE)
 predtr <- predict(rf, newdata = bands3_reduced2.tr[-21])
@@ -141,7 +137,7 @@ cmte
 
 cat("Accuracy of the test set", Acc_te)
 ```
-Then the second table is the confusion matrix of the random forest model on the test set. We now have an accuracy of 0,7435897.
+Then the second table is the confusion matrix of the random forest model on the test set. We now have an accuracy of 0,81197, which is quite good.
 
 
 
