@@ -6,3 +6,4 @@ output: html_document
 ---
 
 
+Dire qu'ils ont fait nimp avec les dernières données alors on a enlevé pour pas biaiser
