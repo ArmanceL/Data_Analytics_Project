@@ -102,7 +102,7 @@ bands3_reduced2.te <- bands3_reduced2[-index.tr,] ## the test set
 
 
 
-## Random forest
+## 1. Random forest
 
 ```{r}
 set.seed(123)
@@ -142,7 +142,7 @@ Then the second table is the confusion matrix of the random forest model on the 
 
 
 
-## CART model 
+## 2. CART model 
 
 ```{r}
 set.seed(123456)
@@ -193,12 +193,12 @@ print(accuracy)
 ```
 The accuracy of the CART model is 0.70085, which is less than the accuracy of the Random Forest model. 
 
-## Naïve Bayes
+## 3. Naïve Bayes
 
-Conditional density Plots with 'usekernel=TRUE' 
+#Conditional density Plots with 'usekernel=TRUE' 
 ```{r}
 model.nb <- naive_bayes(band_type ~ .,
-                       data = bands3_reduced.tr, usekernel=TRUE, laplace=1)
+                       data = bands3_reduced2.tr, usekernel=TRUE, laplace=1)
 #par(mfrow=c(2,2))
 plot(model.nb, arg.num = list(col = 1:3,
                              legend.position = "topright",
@@ -209,10 +209,11 @@ model.nb
 ```
 
 
-Conditional density plots with 'uskernel=FALSE'. It means that Gaussian distribution is applied to 'numeric' vairable. 
+#Conditional density plots with 'uskernel=FALSE'. 
+It means that Gaussian distribution is applied to 'numeric' variable. 
 ```{r}
 model.nb2 <- naive_bayes(band_type ~ .,
-                       data = bands3_reduced.tr, usekernel=FALSE, laplace=1) 
+                       data = bands3_reduced2.tr, usekernel=FALSE, laplace=1) 
 #par(mfrow=c(2,2))
 plot(model.nb2, arg.num = list(col = 1:3,
                              legend.position = "topright",
@@ -221,24 +222,31 @@ par(mfrow=c(1,1))
 model.nb2
 ```
 
-# Confusion matrix train data set 
-```{r}
-p1 <- predict(model.nb, bands3_reduced.tr[quanti])
-(tab1 <- table(p1, bands3_reduced.tr$band_type))
-sum(diag(tab1)) / sum(tab1)
+# Confusion matrix train data set (model.nb)
+```{r echo = FALSE, warning=FALSE, message=FALSE}
+model.nb <- naive_bayes(band_type ~. ,data =bands3_reduced2.tr)
+nb_train_predict <- predict(model.nb, 
+                            bands3_reduced2.te[ , 
+                                              names(bands3_reduced2.te)
+                                              !="band_type"])
+cfm_nb <- confusionMatrix(nb_train_predict, bands3_reduced2.te$band_type)
+cfm_nb                          
 ```
-The accuracy for the train data set is 75,2381 %.
+The accuracy for the train data set is  70.94% (balanced accuracy = 63.44%).
 
-# Confusion Matrix test data set 
-```{r}
-p2 <- predict(model.nb, bands3_reduced.te[quanti])
-(tab2 <- table(p2, bands3_reduced.te$band_type))
-sum(diag(tab2)) / sum(tab2)
+# Confusion matrix train data set (model.nb2)
+```{r echo = FALSE, warning=FALSE, message=FALSE}
+model.nb2 <- naive_bayes(band_type ~. ,data =bands3_reduced2.tr)
+nb_train_predict <- predict(model.nb2, 
+                            bands3_reduced2.te[ , 
+                                              names(bands3_reduced2.te)
+                                              !="band_type"])
+cfm_nb <- confusionMatrix(nb_train_predict, bands3_reduced2.te$band_type)
+cfm_nb                          
 ```
-The accuracy for the train data set is 66,19718 %.
+The accuracy for the train data set is  70.94% (balanced accuracy = 63.44%).
 
-
-## K-NN Model
+## 4. K-NN Model
 
 We use a 2-NN to predict the test set using the training set
 ```{R}
@@ -253,7 +261,7 @@ TAB
 The accuracy is around 59,83%.
 
 
-## Neural Network 
+## 5. Neural Network 
 
 ```{r cache = TRUE, message = FALSE, warning = FALSE, results = 'hide'}
 set.seed(1)
@@ -262,7 +270,7 @@ fitControl <- trainControl(method = "cv",
 nnetGrid <-  expand.grid(size = seq(from = 1, to = 6, by = 1),
                         decay = seq(from = 0.1, to = 0.5, by = 0.1))
 nnetFit <- train(band_type ~ ., 
-                 data = bands3_reduced.tr,
+                 data = bands3_reduced2.tr,
                  method = "nnet",
                  metric = "Accuracy",
                  tuneGrid = nnetGrid,
@@ -273,21 +281,106 @@ nnetFit <- train(band_type ~ .,
 plot(nnetFit)
 ```
 
-The best Neural Networks parameters would be to choose 6 hidden layers, with a decay of 0.1. 
+The best Neural Networks parameters would be to choose 6 hidden layers, with a decay of 0.4. 
 
 The manually written Neural Network model 
 ```{r}
 set.seed(345)
-nn4 <- nnet(band_type ~ ., data=bands3_reduced.tr, size=6, decay = 0.1)
+nn4 <- nnet(band_type ~ ., data=bands3_reduced2.tr, size=6, decay = 0.4)
 nn4_pred <- predict(nn4, type="class")
-tab4 <- table(Obs=bands3_reduced.tr$band_type, Pred=nn4_pred) # confusion matrix
+tab4 <- table(Obs=bands3_reduced2.tr$band_type, Pred=nn4_pred) # confusion matrix
 tab4
 (acc4 <- sum(diag(tab4))/sum(tab4)) # accuracy
 ```
 
-Here it says that the accuracy is 82,86%.
-
+Here it says that the accuracy is 79,71%.
 ```{r}
 # Confusion Matrix
 confusionMatrix(data=as.factor(nn4_pred), reference = bands3_reduced.tr$band_type)
+```
+
+
+## 6. Logistic regression
+
+```{r}
+glm.fit <- glm(formula = band_type ~ grain_screened + paper_type + ink_type + cylinder_type + press_type + press + cylinder_size + proof_cut + viscosity + ink_temperature + humidity + press_speed + ink_pct + wax + hardener + roller_durometer + current_density + anode_space_ratio + chrome_content, family = binomial, data = bands3_reduced2)
+summary(glm.fit)
+coef(glm.fit)
+```
+
+# Confusion matrix (marche pas)
+```{r}
+glm_pred <- predict(glm.fit, type="class")
+glm.fit.pred <- table(Obs=bands3_reduced2$band_type, Pred=glm_pred) 
+# confusion matrix
+glm.fit.pred
+(acc.glm <- sum(diag(glm.fit.pred))/sum(glm.fit.pred)) # accuracy
+```
+
+
+## 7. SVM
+
+```{r}
+library(e1071)
+model.train <- svm(band_type ~ ., data = bands3_reduced2.tr, method = "C-classification", 
+                   kernel = "radial", cost = 10, gamma = 0.1)
+summary(model.train)
+```
+
+```{r}
+model.train$index
+```
+
+```{r}
+model.train$SV
+```
+
+```{r}
+kable(table(true=bands3_reduced2.te$band_type, predicted=predict(model.train, bands3_reduced2.te, decision.values = TRUE)), caption = "Prediction table.")
+```
+# By using repeated cross-validation
+```{r}
+model_svm <- caret::train(band_type ~ .,
+                          data = bands3_reduced2.tr, 
+                          method = "svmRadialCost",
+                          preProcess = "range",
+                          trace = FALSE,
+                          trControl = trainControl(method = "repeatedcv", number = 10, repeats = 10, 
+                                                  verboseIter = FALSE))
+model_svm
+```
+
+```{r}
+model_svm$bestTune
+```
+
+```{r}
+plot(model_svm)
+```
+
+```{r}
+C <- c(0.25, 0.1, 0.5, 1, 10, 100)
+sigma <- c(0.0001, 0.001, 0.01, 0.1, 1)
+gr.radial<-expand.grid(C = C, sigma = sigma)
+model_svm.1<-caret::train(band_type ~ .,
+                          data = bands3_reduced2.tr,
+                          method = "svmRadial",
+                          preProcess = "range",
+                          trace=FALSE,
+                          trControl = trainControl(method = "repeatedcv", number = 10, repeats = 10, 
+                                                  verboseIter = FALSE),
+                          tuneGrid=gr.radial)
+model_svm.1
+```
+
+```{r}
+model_svm.1$bestTune
+```
+
+```{r}
+plot(model_svm.1)
+```
+
+```{r}
+kable(table(true=bands3_reduced2.te$band_type, predicted=predict(model_svm.1, bands3_reduced2.te, decision.values = TRUE)), caption = "Prediction table.")
 ```
