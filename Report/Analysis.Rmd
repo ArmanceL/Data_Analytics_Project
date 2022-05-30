@@ -317,6 +317,29 @@ glm.fit.pred
 (acc.glm <- sum(diag(glm.fit.pred))/sum(glm.fit.pred)) # accuracy
 ```
 
+Stepwise variable selection with backward selection 
+```{r}
+glm.sel <- step(glm.fit)
+summary(glm.sel)
+```
+The stepwise selection has eliminated several variables: "grain_screened", "paper_type", "cylinder_size", "proof_cut", "ink_temperature", "humidity", "hardener", "roller_durometer" and "chrome_content". 
+We can see that the probability of having "noband" is: 
+- smaller with a COVER ink_type and higher with an UNCOATED one
+- smaller with press 815, 816 and 821 
+- increasing a little with press_speed 
+
+Predictions and confusion matrix
+```{r}
+prob.te <- predict(glm.sel, newdata = bands3_reduced2.te, type="response")
+pred.te <- ifelse(prob.te >= 0.5, 1, 0)
+TAB6 <- table(Pred=pred.te, Obs=bands3_reduced2.te$band_type)
+(ACC <- sum(diag(TAB6))/sum(TAB6)) # accuracy 
+```
+The accuracy of the logistic regression is 0.76068. 
+```{r}
+boxplot(prob.te~bands3_reduced2.te$band_type)
+```
+We distinguish well the "band" and the "noband" boxplot. Indeed, most of the probabilities remain above 0,7 for the "noband" observations. However, probabilities are included between 0,1 and 0,8 for the "band" observations, so it's not very helpful. A good model would have two well separated boxplots, well away from 0.5.
 
 ## 7. SVM
 
