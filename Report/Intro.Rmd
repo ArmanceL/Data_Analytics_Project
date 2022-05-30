@@ -33,9 +33,11 @@ By identifying anomalies, we will direct our advices and indications according t
 
 *Context*
 
-- Problematic : Presence of grooves in the cylinders that prevent the printing process from working properly.
-
 - Explanation of the printing process : First, an engraved copper cylinder is rotated in a bath of ink. The excess ink is removed and the paper is pressed against the inked image. Then, the engraved image is removed from the cylinder once the job is complete. Finally, the cylinder in re-used.
+
+- Problematic : Presence of grooves in the cylinders that prevent the printing process from working properly. 
+
+- Our goal : Identify anomalies during the printing process in order to reduce or eliminate these banding defects. 
 
 *Report organization*
 
