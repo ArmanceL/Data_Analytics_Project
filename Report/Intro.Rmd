@@ -35,13 +35,13 @@ By identifying anomalies, we will direct our advices and indications according t
 
 - Problematic : Presence of grooves in the cylinders that prevent the printing process from working properly.
 
-- Printing process : First, an engraved copper cylinder is rotated in a bath of ink. The excess ink is removed and the paper is pressed against the inked image. Then, the engraved image is removed from the cylinder once the job is complete. Finally, the cylinder in re-used.
+- Explanation of the printing process : First, an engraved copper cylinder is rotated in a bath of ink. The excess ink is removed and the paper is pressed against the inked image. Then, the engraved image is removed from the cylinder once the job is complete. Finally, the cylinder in re-used.
 
 *Report organization*
 
+- Business understanding 
 - Data understanding 
-- Data cleaning 
 - Data preparation 
 - Modeling
 - Evaluation 
-- Conclusion and recomendations 
+- Conclusion and recommendations 
