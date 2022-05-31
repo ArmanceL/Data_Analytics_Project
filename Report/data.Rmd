@@ -16,17 +16,16 @@ In this first part, we will first download the data into R. Then, we will apply 
 The database *bands3* is initially composed of 540 observation and 40 variables.
 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 # Loading data into R
 bands3 <- read.csv2(here::here("Data/bands3.csv"))
 ```
 
-```{r, echo = FALSE, warning = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 # Response attribute transformation 
 bands3$job_number <- as.character(bands3$job_number)
 bands3$press <- as.character(bands3$press)
 bands3$unit_number <- as.character(bands3$unit_number)
-
 bands3$proof_cut <- as.numeric(bands3$proof_cut)
 bands3$viscosity <- as.numeric(bands3$viscosity)
 bands3$caliper <- as.numeric(bands3$caliper)
@@ -49,7 +48,7 @@ bands3$chrome_content <- as.numeric(bands3$chrome_content)
 ```
 
  
-```{r, echo = FALSE, warning = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 # Database reduction 
 index<- c(5,7,10,11,13:16,18:31,34:40)
 bands3_reduced <- bands3%>%
@@ -61,6 +60,7 @@ After reading and understanding these variables, we realize that some of them ar
 The new database *bands3_reduced* is now composed of 540 observations and 29 variables.
 
 __Variables removed:__
+
 - date
 - cylinder_no
 - customer
