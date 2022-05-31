@@ -1,6 +1,6 @@
 ---
 title: "DA_Project"
-author: "Nina"
+author: "Nina and Armance"
 date: "4/20/2022"
 output: html_document
 ---
