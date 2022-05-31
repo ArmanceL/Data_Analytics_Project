@@ -8,7 +8,7 @@ packages <- c(
   "dplyr",  "lubridate","DataExplorer","summarytools","Hmisc","psych",
   "ggplot2", "naniar", "patchwork", "FactoMineR",
   "factoextra", "corrplot", "GGally", #for plotting
-  "nnet", "caret", "neuralnet","NeuralNetTools" # for Neural Network 
+  "nnet", "caret", "neuralnet","NeuralNetTools", # for Neural Network 
   "randomForest","naivebayes",
   "DT","tidyquant","ggthemes","RColorBrewer","corrr","ggcorrplot","cowplot","grid","gridGraphics",
   "kableExtra","DataExplorer","inspectdf","explore","Boruta","targets","visdat","VIM", "rpart", "knitr")
