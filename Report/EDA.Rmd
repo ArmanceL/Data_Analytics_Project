@@ -1,11 +1,10 @@
 ---
-title: "DA_Project"
-author: "Nina and Armance"
-date: "4/20/2022"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 source(here::here("Scripts/SetUp.R"))
 ```
 
