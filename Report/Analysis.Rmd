@@ -122,7 +122,7 @@ Then the second table is the confusion matrix of the random forest model on the 
 
 ### CART model 
 
-```{r, echo = FALSE, message = FALSE}
+```{r include=FALSE}
 set.seed(123456)
 bands <- rpart(band_type ~ ., method = "class", data = bands3_reduced2.tr, control = rpart.control(minsplit = 4,
     cp = 1e-05), model = TRUE)
@@ -151,7 +151,7 @@ cp0 <- cp[rmin, 1]
 cat("size chosen was", cp[rmin, 2] + 1, "\n")
 ```
 
-```{r, echo = FALSE, message = FALSE}
+```{r include=FALSE}
 bands.ct <- prune(bands, cp = 1.01 * cp0)
 summary(bands.ct)
 ```
@@ -174,8 +174,9 @@ The accuracy of the CART model is 0.70085, which is less than the accuracy of th
 
 ### Naïve Bayes
 
-#Conditional density Plots with 'usekernel=TRUE' 
-```{r, echo = FALSE, message = FALSE}
+We did a Conditional density Plots with 'usekernel=TRUE', which means that ...but 
+
+```{r include=FALSE}
 model.nb <- naive_bayes(band_type ~ .,
                        data = bands3_reduced2.tr, usekernel=TRUE, laplace=1)
 #par(mfrow=c(2,2))
@@ -187,22 +188,9 @@ par(mfrow=c(1,1))
 model.nb
 ```
 
+Here is the confusion matrix on the test data set (model.nb)
 
-#Conditional density plots with 'uskernel=FALSE'. 
-It means that Gaussian distribution is applied to 'numeric' variable. 
-```{r, echo = FALSE, message = FALSE}
-model.nb2 <- naive_bayes(band_type ~ .,
-                       data = bands3_reduced2.tr, usekernel=FALSE, laplace=1) 
-#par(mfrow=c(2,2))
-plot(model.nb2, arg.num = list(col = 1:3,
-                             legend.position = "topright",
-                             legend.cex = 0.8), prob="conditional")
-par(mfrow=c(1,1))
-model.nb2
-```
-
-# Confusion matrix train data set (model.nb)
-```{r echo = FALSE, warning=FALSE, message=FALSE}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 model.nb <- naive_bayes(band_type ~. ,data =bands3_reduced2.tr)
 nb_train_predict <- predict(model.nb, 
                             bands3_reduced2.te[ , 
@@ -213,22 +201,11 @@ cfm_nb
 ```
 The accuracy for the train data set is  70.94% (balanced accuracy = 63.44%).
 
-# Confusion matrix train data set (model.nb2)
-```{r echo = FALSE, warning=FALSE, message=FALSE}
-model.nb2 <- naive_bayes(band_type ~. ,data =bands3_reduced2.tr)
-nb_train_predict <- predict(model.nb2, 
-                            bands3_reduced2.te[ , 
-                                              names(bands3_reduced2.te)
-                                              !="band_type"])
-cfm_nb <- confusionMatrix(nb_train_predict, bands3_reduced2.te$band_type)
-cfm_nb                          
-```
-The accuracy for the train data set is  70.94% (balanced accuracy = 63.44%).
 
-## 4. K-NN Model
+### K-NN Model
 
 We use a 2-NN to predict the test set using the training set
-```{R}
+```{r,echo = FALSE, warning=FALSE, message=FALSE}
 set.seed(123)
 KNN <- knn3(data=bands3_reduced2.tr, bands3_reduced2.tr$band_type ~ ., k=2)
 BT.te.pred <- predict(KNN, newdata = bands3_reduced2.te,type ="class") 
@@ -242,7 +219,7 @@ The accuracy is around 59,83%.
 
 ## 5. Neural Network 
 
-```{r cache = TRUE, message = FALSE, warning = FALSE, results = 'hide'}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 set.seed(1)
 fitControl <- trainControl(method = "cv", 
                            number = 10)
@@ -256,14 +233,14 @@ nnetFit <- train(band_type ~ .,
                  trControl = fitControl)
 ```
 
-```{r}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 plot(nnetFit)
 ```
 
 The best Neural Networks parameters would be to choose 6 hidden layers, with a decay of 0.4. 
 
 The manually written Neural Network model 
-```{r}
+```{r include=FALSE}
 set.seed(345)
 nn4 <- nnet(band_type ~ ., data=bands3_reduced2.tr, size=6, decay = 0.4)
 nn4_pred <- predict(nn4, type="class")
@@ -273,32 +250,27 @@ tab4
 ```
 
 Here it says that the accuracy is 79,71%.
-```{r}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 # Confusion Matrix
 confusionMatrix(data=as.factor(nn4_pred), reference = bands3_reduced.tr$band_type)
 ```
 
 
-## 6. Logistic regression
+### Logistic regression
 
-```{r}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 glm.fit <- glm(formula = band_type ~ grain_screened + paper_type + ink_type + cylinder_type + press_type + press + cylinder_size + proof_cut + viscosity + ink_temperature + humidity + press_speed + ink_pct + wax + hardener + roller_durometer + current_density + anode_space_ratio + chrome_content, family = binomial, data = bands3_reduced2)
 summary(glm.fit)
 coef(glm.fit)
 ```
 
-# Confusion matrix (marche pas)
-```{r}
-glm_pred <- predict(glm.fit, type="class")
-glm.fit.pred <- table(Obs=bands3_reduced2$band_type, Pred=glm_pred) 
-# confusion matrix
-glm.fit.pred
-(acc.glm <- sum(diag(glm.fit.pred))/sum(glm.fit.pred)) # accuracy
-```
 
 Stepwise variable selection with backward selection 
-```{r}
+```{r include=FALSE}
 glm.sel <- step(glm.fit)
+```
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 summary(glm.sel)
 ```
 The stepwise selection has eliminated several variables: "grain_screened", "paper_type", "cylinder_size", "proof_cut", "ink_temperature", "humidity", "hardener", "roller_durometer" and "chrome_content". 
@@ -308,36 +280,39 @@ We can see that the probability of having "noband" is:
 - increasing a little with press_speed 
 
 Predictions and confusion matrix
-```{r}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 prob.te <- predict(glm.sel, newdata = bands3_reduced2.te, type="response")
 pred.te <- ifelse(prob.te >= 0.5, 1, 0)
 TAB6 <- table(Pred=pred.te, Obs=bands3_reduced2.te$band_type)
 (ACC <- sum(diag(TAB6))/sum(TAB6)) # accuracy 
 ```
+<br />
 The accuracy of the logistic regression is 0.76068. 
-```{r}
+<br />
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 boxplot(prob.te~bands3_reduced2.te$band_type)
 ```
+<br />
+<br />
 We distinguish well the "band" and the "noband" boxplot. Indeed, most of the probabilities remain above 0,7 for the "noband" observations. However, probabilities are included between 0,1 and 0,8 for the "band" observations, so it's not very helpful. A good model would have two well separated boxplots, well away from 0.5.
 
-## 7. SVM
+### SVM
 
-```{r}
-library(e1071)
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 model.train <- svm(band_type ~ ., data = bands3_reduced2.tr, method = "C-classification", 
                    kernel = "radial", cost = 10, gamma = 0.1)
 summary(model.train)
 ```
 
-```{r}
+```{r include=FALSE}
 model.train$index
 ```
 
-```{r}
+```{r include=FALSE}
 model.train$SV
 ```
 
-```{r}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 kable(table(true=bands3_reduced2.te$band_type, predicted=predict(model.train, bands3_reduced2.te, decision.values = TRUE)), caption = "Prediction table.")
 ```
 # By using repeated cross-validation
