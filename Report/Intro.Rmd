@@ -28,11 +28,11 @@ Semester Spring 2022
 This work is part of the framework of the "Data Analytics for Decision Making" course. We will work on this project by performing a detailed analysis of the 'bands3' database using the CRISP - DM method.
 Our goal is to answer our customer's questions about the presence of grooves in the cylinder at some point during the printing process that ruining his products. Thus we will be able to give him solutions to increase the efficiency and quality of his business.
 For the rest of the project, the observation "band" will refer to the presence of these grooves, and "noband" will correspond to the absence of those, thus to the good functioning of the cylinder.
-By identifying anomalies, we will direct our advices and indications according to these three main axes. 
+By identifying anomalies, we will direct our advices and indications according to these main axes. 
 
  + What are the variables/parts of the printing process that influence the presence of bands ?
  + How can we modulate these variables to obtain a combination that optimizes the process?
- + Is there a judicious choice of printer or ink that would minimize the presence of these bands on the paper?
+
 
 * __Data understanding__ 
 
