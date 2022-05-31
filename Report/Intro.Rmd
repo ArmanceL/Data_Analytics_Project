@@ -33,9 +33,9 @@ Our goal is to answer our customer's questions about the presence of grooves in 
 For the rest of the project, the observation "band" will refer to the presence of these grooves, and "noband" will correspond to the absence of those, thus to the good functioning of the cylinder.
 By identifying anomalies, we will direct our advices and indications according to these three main axes. 
 
-1. What are the variables/parts of the printing process that influence the presence of bands ?
-2. How can we modulate these variables to obtain a combination that optimizes the process?
-3. Is there a judicious choice of printer or ink that would minimize the presence of these bands on the paper?
+ + What are the variables/parts of the printing process that influence the presence of bands ?
+ + How can we modulate these variables to obtain a combination that optimizes the process?
+ + Is there a judicious choice of printer or ink that would minimize the presence of these bands on the paper?
 
 * __Data understanding__ 
 
