@@ -8,12 +8,14 @@ output: html_document
 ```{r, echo = FALSE, message = FALSE}
 source(here::here("Scripts/SetUp.R"))
 ```
+--> faire une phrase qui explique pq pas de balance data
 
+## Modeling 
 
-### Replace the NAs by the median of each column's variable 
 Some of the models we will use do not work with NAs. To deal with them, we decided to replace the NAs by the median of their variables. 
 Concerning missing values in categorical variables, we will eliminate the rows containing NA for these categorical variables. 
-```{r}
+
+```{r, echo = FALSE, message = FALSE}
 
 #Discrete variables 
 
@@ -52,9 +54,9 @@ bands3_reduced2 <- bands3_reduced2 %>%
 bands3_reduced2 <- na.omit(bands3_reduced2)
 ```
 Out of the 540 observations in the database, we now have 467, without missing values.
-We now convert all categorical variables into a factor. 
+We then convert all categorical variables into a factor. 
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 bands3_reduced2$grain_screened <- as.factor(bands3_reduced2$grain_screened)
 bands3_reduced2$paper_type <- as.factor(bands3_reduced2$paper_type)
 bands3_reduced2$ink_type <- as.factor(bands3_reduced2$ink_type)
@@ -66,9 +68,9 @@ bands3_reduced2$band_type <- as.factor(bands3_reduced2$band_type)
 ```
 We can now proceed with our analysis.
 
-## Splitting the data into Traning set and Test set 
+### Data splitting and data balancing
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 set.seed(123) ## for replication purpose
 ## the index of the rows that will be in the training set
 index.tr <- sample(1:nrow(bands3_reduced2), replace=FALSE,
@@ -77,34 +79,10 @@ bands3_reduced2.tr <- bands3_reduced2[index.tr,] ## the training set
 bands3_reduced2.te <- bands3_reduced2[-index.tr,] ## the test set
 ```
 
-## Balancing the Training set : PAS BESOIN POUR L'INSTANT
 
-```{r}
-#band1 <- min(table(bands3_reduced.tr$band_type)) ## 171
-## the "band" cases
-#data.tr.band1 <- filter(bands3_reduced.tr, band_type=="band")
-## the "noband" cases
-#data.tr.band2 <- filter(bands3_reduced.tr, band_type=="noband")
+### Random forest
 
-## sub-sample 171 instances from the number of "noband" cases
-#index.band2 <- sample(size=band1, 
-#                           x=1:nrow(data.tr.band2), 
-#                           replace=FALSE)
-
-  
-## Bind all the "Central Andes" and the sub-sampled "Central Pyrenees" 
-## and the sub-sampled "Sierra de Guadarrama"
-#bands3_reduced.tr <- data.frame(rbind(data.tr.band1,
-#                                     data.tr.band2[index.band2,])) 
-## The cases are now balanced
-#table(bands3_reduced.tr$band_type)
-```
-
-
-
-## 1. Random forest
-
-```{r}
+```{r, echo = FALSE, message = FALSE}
 set.seed(123)
 
 rf <- randomForest(band_type ~ .,data=bands3_reduced2.tr, importance = TRUE)
@@ -119,12 +97,12 @@ print(rf)
 ```
 Here we can see the difference between the descending average of the precision that each variable adds to the model and the descending average of Gini which is a coefficient that shows the contribution of each variable to the homogeneity of nodes and leaves. We notice that some variables have a higher precision importance than their importance based on their Gini score, for our selection of future candidate variables for a simpler model we will make a compromise between these two measures.
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 #importance(rf)
 Acc_tr <- sum(diag(cmtr))/sum(cmtr)
 Acc_te <- sum(diag(cmte))/sum(cmte)
 ```
-```{r}
+```{r, echo = FALSE, message = FALSE}
 # Confusion Matrix of the Random Forest model on training set 
 cmtr
 
@@ -142,29 +120,29 @@ Then the second table is the confusion matrix of the random forest model on the 
 
 
 
-## 2. CART model 
+### CART model 
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 set.seed(123456)
 bands <- rpart(band_type ~ ., method = "class", data = bands3_reduced2.tr, control = rpart.control(minsplit = 4,
     cp = 1e-05), model = TRUE)
 summary(bands)
 ```
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 par(pty = "s", mar = c(1, 1, 1, 1))
 plot(bands, cex = 1)
 text(bands, cex = 0.6)
 ```
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 printcp(bands)
 
 par(pty = "s")
 plotcp(bands)
 ```
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 cp <- bands$cptable
 opt <- which.min(bands$cptable[, "xerror"])
 r <- cp[, 4][opt] + cp[, 5][opt]
@@ -173,30 +151,31 @@ cp0 <- cp[rmin, 1]
 cat("size chosen was", cp[rmin, 2] + 1, "\n")
 ```
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 bands.ct <- prune(bands, cp = 1.01 * cp0)
 summary(bands.ct)
 ```
-```{r}
+```{r, echo = FALSE, message = FALSE}
 par(mar = c(0.5, 1, 0.5, 1))
 plot(bands.ct, branch = 0.4, uniform = TRUE)
 text(bands.ct, digits = 3, use.n = TRUE, cex = 0.6)
 ```
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 bands.pred <- predict(bands.ct, bands3_reduced2.te,type = "class")
 
 confMat <- table(bands3_reduced2.te$band_type,bands.pred)
-confMat
+kable(table(bands3_reduced2.te$band_type, bands.pred), caption = "Prediction table of the CART model")
+
 accuracy <- sum(diag(confMat))/sum(confMat)
 print(accuracy)
 ```
 The accuracy of the CART model is 0.70085, which is less than the accuracy of the Random Forest model. 
 
-## 3. Naïve Bayes
+### Naïve Bayes
 
 #Conditional density Plots with 'usekernel=TRUE' 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 model.nb <- naive_bayes(band_type ~ .,
                        data = bands3_reduced2.tr, usekernel=TRUE, laplace=1)
 #par(mfrow=c(2,2))
@@ -211,7 +190,7 @@ model.nb
 
 #Conditional density plots with 'uskernel=FALSE'. 
 It means that Gaussian distribution is applied to 'numeric' variable. 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 model.nb2 <- naive_bayes(band_type ~ .,
                        data = bands3_reduced2.tr, usekernel=FALSE, laplace=1) 
 #par(mfrow=c(2,2))
