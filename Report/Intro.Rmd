@@ -8,7 +8,7 @@ output: html_document
 #### Data Analytics for Decision making 
 #### Project 2 : Quality improvment initiatives in rotogravure printing 
 
-Armance Larfeuille and Nina Bidet
+Armance Larfeuille and Nina Bidet  
 Teacher : J.Zuber
 
 Semester Spring 2022
