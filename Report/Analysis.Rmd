@@ -219,7 +219,7 @@ The accuracy is around 59,83%.
 
 ### Neural Network 
 
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
+```{r include=FALSE}
 set.seed(1)
 fitControl <- trainControl(method = "cv", 
                            number = 10)
@@ -320,50 +320,4 @@ model.svm$SV
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 kable(table(true=bands3_reduced2.te$band_type, predicted=predict(model.svm, bands3_reduced2.te, decision.values = TRUE)), caption = "Prediction table.")
-```
-# By using repeated cross-validation
-```{r}
-model_svm <- caret::train(band_type ~ .,
-                          data = bands3_reduced2.tr, 
-                          method = "svmRadialCost",
-                          preProcess = "range",
-                          trace = FALSE,
-                          trControl = trainControl(method = "repeatedcv", number = 10, repeats = 10, 
-                                                  verboseIter = FALSE))
-model_svm
-```
-
-```{r}
-model_svm$bestTune
-```
-
-```{r}
-plot(model_svm)
-```
-
-```{r}
-C <- c(0.25, 0.1, 0.5, 1, 10, 100)
-sigma <- c(0.0001, 0.001, 0.01, 0.1, 1)
-gr.radial<-expand.grid(C = C, sigma = sigma)
-model_svm.1<-caret::train(band_type ~ .,
-                          data = bands3_reduced2.tr,
-                          method = "svmRadial",
-                          preProcess = "range",
-                          trace=FALSE,
-                          trControl = trainControl(method = "repeatedcv", number = 10, repeats = 10, 
-                                                  verboseIter = FALSE),
-                          tuneGrid=gr.radial)
-model_svm.1
-```
-
-```{r}
-model_svm.1$bestTune
-```
-
-```{r}
-plot(model_svm.1)
-```
-
-```{r}
-kable(table(true=bands3_reduced2.te$band_type, predicted=predict(model_svm.1, bands3_reduced2.te, decision.values = TRUE)), caption = "Prediction table.")
 ```
