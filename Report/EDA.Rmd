@@ -30,7 +30,7 @@ Here is an overview of our database:
 datatable(bands3_reduced)
 ```
 
-```{r }
+```{r, echo = FALSE, message = FALSE}
 bands3_reduced %>%
     ggplot(aes(x = band_type)) + geom_bar(aes(fill = factor(band_type))) + labs(color = "",
     fill = "", x = "response", y = "count", title = "target attribute", subtitle = "(n: no band; y: band)", caption = "Print banding Problem") + theme(plot.title =element_text(size=20))+ geom_text(stat='count', aes(label=..count..), vjust=-0.2)
