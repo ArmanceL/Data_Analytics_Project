@@ -96,11 +96,13 @@ Our first ideas for recommendations based on this graph : *grain_screened* : do 
 *paper_type* : don't use "super" paper type, because it always produces band, favor the "coated" one. 
 *ink_type* : use coated ink
 *press_type* : use "motter94" press 
-*press* :
+*press* : avoid 821, 816 and 815 
 *proof_cut* : position the proof cut at 40 rather than 50 
 *ink_temperature* : set the temperature to 16
 *press_speed* : set the speed of the press either above 2200 or below 1500 
 *hardener* : as there is a band peak when the hardener is at 1, it is better to avoid this value 
+*grain_screened* : it is better to have no grain_screened 
+*roughness* : avoid roughness between 0,6 and 0,8 
 
 ## 3.4.3 We plot the categorical variables: 
 
