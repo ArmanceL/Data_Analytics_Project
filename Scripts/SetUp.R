@@ -11,6 +11,6 @@ packages <- c(
   "nnet", "caret", "neuralnet", # for Neural Network 
   "randomForest","naivebayes",
   "DT","tidyquant","ggthemes","RColorBrewer","corrr","ggcorrplot","cowplot","grid","gridGraphics",
-  "kableExtra","DataExplorer","inspectdf","explore","Boruta","targets","visdat","VIM", "rpart", "knitr")
+  "kableExtra","DataExplorer","inspectdf","explore","Boruta","targets","visdat","VIM", "rpart", "knitr", "e1071")
 
 purrr::walk(packages, library, character.only = TRUE)
