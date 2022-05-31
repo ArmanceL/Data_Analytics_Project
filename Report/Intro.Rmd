@@ -5,16 +5,13 @@ date: "05/05/2022"
 output: html_document
 ---
 
-#### Data Analytics for Decision making 
-#### Project 2 : Quality improvment initiatives in rotogravure printing 
-
 Armance Larfeuille and Nina Bidet  
 Teacher : J.Zuber
 
 Semester Spring 2022
 
 
-### Part 1 : Introduction
+### Introduction
 
 *Context*
 
