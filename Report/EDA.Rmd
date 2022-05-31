@@ -9,117 +9,117 @@ output: html_document
 source(here::here("Scripts/SetUp.R"))
 ```
 
-### Part 3 : Exploratory Data Analysis (EDA)
+### Exploratory Data Analysis (EDA)
 
 This section is dedicated to understanding the data. We will provide an analysis of the data set using a visual approach in order to summarize their main characteristics.
 
-## 3.1 Data structure and summary
-```{r }
+#### Data structure
+
+The following graph helps us to visualize the structure of our dataset: 
+
+```{r, results='asis', echo = FALSE, message = FALSE}
 x<-inspect_types(bands3_reduced)
 show_plot(x, col_palette=2)
 ```
-We have 17 numerical variables and 12 character variables. This will help us in the choice of the model for the analysis part.
+<br />
+<br />
 
-## 3.2 Data structure 
-```{r }
-head(bands3_reduced)
-describe(bands3_reduced)
-as_tibble(bands3_reduced)
+We have 17 numerical variables and 12 character variables. This will help us in the choice of the model for the analysis part.
+Here is an overview of our database: 
+
+```{r, results='asis', echo = FALSE, message = FALSE}
 datatable(bands3_reduced)
 ```
-## 3.3 Data summary
-```{r }
-dfSummary(bands3_reduced, style = "grid")
-```
+
 ```{r }
 bands3_reduced %>%
     ggplot(aes(x = band_type)) + geom_bar(aes(fill = factor(band_type))) + labs(color = "",
     fill = "", x = "response", y = "count", title = "target attribute", subtitle = "(n: no band; y: band)", caption = "Print banding Problem") + theme(plot.title =element_text(size=20))+ geom_text(stat='count', aes(label=..count..), vjust=-0.2)
 ```
-From the 'dfSummary' function and the above plot, we notice that we have 42,2 % (228 observations) of data with "band" and 57,8% (312 observations) of data with "noband". We believe at this stage that it will not be necessary to balance the data, but we may have to do it later in case some models do not give satisfactory results. 
+From the above plot, we notice that we have 42,2 % (228 observations) of data with "band" and 57,8% (312 observations) of data with "noband". We believe at this stage that it will not be necessary to balance the data, but we may have to do it later in case some models do not give satisfactory results. 
 
-## 3.4 Data Expolrer library
-```{r }
+### Data composition 
+```{r, results='asis', echo = FALSE, message = FALSE}
 introduce(bands3_reduced)
 plot_intro(bands3_reduced)
 ```
+<br />
+<br />
 We can see that we have more continuous columns than discrete columns, nevertheless the gap is not so big. 
 It's also interesting to see that we don't have any all missing columns and that 52% of our dataset are complete rows.
 We have 5.1% of missing observations which we will look at in more detail just below.
 
-## 3.4.1 Missing observations
+### Missing observations
 
 It is important to analyze missing data since they can bias the results and interpretations if they are too large in number or distributed in a certain way.
 
-# Missing data histogram
-```{r}
+```{r, results='asis', echo = FALSE, message = FALSE}
 x<-inspect_na(bands3_reduced)
 show_plot(x, col_palette=5)
 ```
+<br />
+<br />
+
 Overall, the missing observations are not egregious in our dataset. Nevertheless, we will have to pay attention to the variable *location* in which we still find 28,9% of the columns that is NA. An analysis according to this variable will therefore probably only be slightly representative and useful. 
 We also notice that there is a tendency to have more missing observations in the numerical variables than characteristics one.
 
 Moreover, we will now make a separate visual analysis of these two types of variables in order to extract their specificities and adapt the rest of our report accordingly. 
 
-## 3.4.2 We plot the numerical variables: 
+### Numerical variables: 
 
-# Histograms
-```{r }
+We plot the numerical variables. 
+```{r, echo = FALSE, message = FALSE, warning = FALSE, out.width = "50%"}
 plot_histogram(bands3_reduced)
 ```
 
+```{r, echo = FALSE, message = FALSE, warning = FALSE, out.width = "50%"}
 # Density plots
-```{r }
 plot_density(bands3_reduced,
-             ggtheme = theme_bw()) # Density plots
+             ggtheme = theme_bw())
 ```
 Above are the distributions of the numerical variables, with histograms and density plots. Some variables, like *ink_temperature* and *press_speed* are normally distributed. Others like *current_density* or *wax* show peaks or trends for a certain value.
 
-# Side-by-side boxplots
-```{r}
+<br />
+
+We will then use box-plots to detect outliers on numerical variable and compare the distributions according to their tendency to have the default ("band" or "noband".
+
+<br />
+```{r, echo = FALSE, message = FALSE, warning = FALSE, out.width = "50%"}
 plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
              title = "Side-by-side boxplots", geom_boxplot_args = list("outlier.color" = "red")) # Boxplot
 ```
+<br />
+
 We then analyzed the numerical variables in box plots, separating them between the "band" and "noband" categories, in order to identify potential differences. This also allows us to realize the presence of some outliers. Indeed, they are very numerous for some variables such as *roughness* *ink_temperature* *blade_pressure* *wax* and *hardener*. 
 
 
-# Response attribute
+### Variables exploration of both categorical and numerical ones 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.width=12, fig.height=12 ,out.width="50%"}
 bands3_reduced %>%
   explore_all(target = band_type)
 ```
+<br />
 
 *grain_screened*, *proof_ink*, *paper_type*, *ink_type*, *press_type*, *press*, *location*, *proof_cut*, *ink_temperature*, *roughness*,  *press_speed*, *wax*, *hardener*, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
 
-Our first ideas for recommendations based on this graph : *grain_screened* : do not favour screened grain (more "no_band" without)
-*paper_type* : don't use "super" paper type, because it always produces band, favor the "coated" one. 
-*ink_type* : use coated ink
-*press_type* : use "motter94" press 
-*press* : avoid 821, 816 and 815 
-*proof_cut* : position the proof cut at 40 rather than 50 
-*ink_temperature* : set the temperature to 16
-*press_speed* : set the speed of the press either above 2200 or below 1500 
-*hardener* : as there is a band peak when the hardener is at 1, it is better to avoid this value 
-*grain_screened* : it is better to have no grain_screened 
-*roughness* : avoid roughness between 0,6 and 0,8 
+Our first ideas for recommendations based on this graph : 
 
-## 3.4.3 We plot the categorical variables: 
+- *grain_screened* : do not favour screened grain (more "no_band" without)
+- *paper_type* : don't use "super" paper type, because it always produces band, favor the "coated" one. 
+- *ink_type* : use coated ink
+- *press_type* : use "motter94" press 
+- *press* : avoid 821, 816 and 815 
+- *proof_cut* : position the proof cut at 40 rather than 50 
+- *ink_temperature* : set the temperature to 16
+- *press_speed* : set the speed of the press either above 2200 or below 1500 
+- *hardener* : as there is a band peak when the hardener is at 1, it is better to avoid this value 
+- *roughness* : avoid roughness between 0,6 and 0,8 
 
-# Bar graph
-```{r}
-bands3_reduced %>%
-  keep(is.character) %>%
-  gather() %>%
-  ggplot(aes(value)) +
-  facet_wrap(~ key, scales = "free") +
-  geom_bar(stat="count") +
-  coord_flip()
-```
-Firstly, it is important to note that the data is rather balanced. Pas très util vu qu'il y a density plot au dessus ? 
 
-## 4. Variables summaries of quantitative variables 
-```{r }
+
+### Variables summaries of quantitative variables 
+```{r, results='asis', echo = FALSE, message = FALSE}
 quali <- c(29,1:11)
 quanti<-12:28
 mat<-matrix(0, length(quanti), 7)
@@ -136,33 +136,24 @@ print(round(mat, 2))
 ```
 
 
-# 5. Pairwise comparisons (matrix of scatterplots and correlations)
+### Correlation
 
-We split numerical and categorical variables 
-## 5.1 Correlation plot between numerical variables
-```{r}
+We split numerical and categorical variables to obtain the correlation plot. 
+
+```{r, results='asis', echo = FALSE, message = FALSE}
 bands3_reduced.num<-bands3_reduced[,quanti]
 bands3_reduced.categoric <- bands3_reduced[,quali]
 plot_correlation(bands3_reduced.num, type= 'c', cor_args = list( 'use' = 'complete.obs'))
 ```
-No correlation, independant variables except *ink_pct* & *varnish_pct* (negatively correlated).
-
-## 5.2 Relationships between continuous variables
-```{r}
-bands3_continuous <- bands3_reduced.num[,c(3,6,8,10:13)]
-plot_correlation(bands3_continuous, type= 'c', cor_args = list( 'use' = 'complete.obs'))
-```
+We see no correlation between variables so there are independant variables except *ink_pct* & *varnish_pct*, which are negatively correlated.
 
 
-## 6. Outliers
-```{r}
-summary(bands3_reduced) # same que variables summary du dessus 
-``` 
 
-## 7. Boruta algo 
+### Boruta algorithm
 
 We firstly need to treat the missing values and convert each variables into a factor to use the Boruta algorithm. 
-```{r}
+
+```{r, results='asis', echo = FALSE, message = FALSE}
 
 bands3_reducedNA <- bands3_reduced[complete.cases(bands3_reduced),]
 
@@ -187,7 +178,7 @@ bands3_reducedNA$band_type <- as.factor(bands3_reducedNA$band_type)
 
 This algorithm will help us to decide if a variable is important or not. 
 
-```{r}
+```{r, results='asis', echo = FALSE, message = FALSE}
 set.seed(123)
 boruta_output <- Boruta(band_type ~ . , data=bands3_reducedNA, doTrace=2) # perform Boruta search
 
@@ -200,18 +191,23 @@ axis(side = 1,las=2,labels = names(Labels),
 at = 1:ncol(boruta_output$ImpHistory), cex.axis = 0.7)
 
 ```
+<br />
+<br />
 Thanks to boruta algorithm, we can decide which variable is important or not. For the analysis part, we will keep variables in green (17) and yellow (4) on the graph above. We then need to remove variables between shadowMin and shadowMax: *solvent_type*, *caliper*, *proof_ink*, *plating_tank*, *roughness*, *blade_pressure* and *varnish_pct*.  
-We also remove *location* as it has more than 30% of missing observations. 
+We will also remove *location* as it has more than 30% of missing observations. 
 
-```{r}
+```{r,echo = FALSE, message = FALSE}
 bands3_reduced2 <- bands3_reduced%>%
   select(c(1,3,4,6:9,12:13,15,16,20:29))
 ```
 
-```{r}
+```{r results='asis', echo = FALSE, message = FALSE}
 vis_miss(bands3_reduced2)
 ```
+<br />
+<br />
 The function "vis_miss" allows us to visualize easily with this graph, all the missing observations. We notice in this graphical representation that from line 486 there is a lack of data for some variables until the last observation. We therefore take the decision to delete all the lines from the 486th for the continuation of our analysis. 
-```{r}
+
+```{r,echo = FALSE, message = FALSE}
 bands3_reduced2 <- bands3_reduced2[-c(486:540),] 
 ````
