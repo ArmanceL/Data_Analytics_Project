@@ -15,13 +15,14 @@ In this first part, we will first download the data into R. Then, we will apply 
 
 The database *bands3* is initially composed of 540 observation and 40 variables.
 
+
+```{r, echo = FALSE}
 # Loading data into R
-```{r}
 bands3 <- read.csv2(here::here("Data/bands3.csv"))
 ```
 
+```{r, echo = FALSE, warning = FALSE}
 # Response attribute transformation 
-```{r}
 bands3$job_number <- as.character(bands3$job_number)
 bands3$press <- as.character(bands3$press)
 bands3$unit_number <- as.character(bands3$unit_number)
@@ -47,8 +48,9 @@ bands3$anode_space_ratio <- as.numeric(bands3$anode_space_ratio)
 bands3$chrome_content <- as.numeric(bands3$chrome_content)
 ```
 
+ 
+```{r, echo = FALSE, warning = FALSE}
 # Database reduction 
-```{r}
 index<- c(5,7,10,11,13:16,18:31,34:40)
 bands3_reduced <- bands3%>%
   select(index)
@@ -58,7 +60,7 @@ After reading and understanding these variables, we realize that some of them ar
 
 The new database *bands3_reduced* is now composed of 540 observations and 29 variables.
 
-# Variables removed:
+__Variables removed:__
 - date
 - cylinder_no
 - customer
@@ -71,13 +73,14 @@ The new database *bands3_reduced* is now composed of 540 observations and 29 var
 - ESA_amperage
 - anode_space_ratio
 
-# 29 Variables kept for analysis:
-```{r }
+Here is an overview of the variables we have kept:
+```{r, echo = FALSE}
 str(bands3_reduced) 
 ```
 
-# Replace all the "?" by "NA" + All the instances on same format
-```{r}
+We noticed some question marks (?) for some observations. We decided to replace them all with missing values (NA).
+
+```{r, echo = FALSE}
 bands3_reduced[bands3_reduced == "?"] <- NA
 bands3_reduced[, 1:11] <- lapply(bands3_reduced[, 1:11], toupper)
 ```
