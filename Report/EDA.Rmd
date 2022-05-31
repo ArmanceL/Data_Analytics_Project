@@ -35,11 +35,17 @@ bands3_reduced %>%
     ggplot(aes(x = band_type)) + geom_bar(aes(fill = factor(band_type))) + labs(color = "",
     fill = "", x = "response", y = "count", title = "target attribute", subtitle = "(n: no band; y: band)", caption = "Print banding Problem") + theme(plot.title =element_text(size=20))+ geom_text(stat='count', aes(label=..count..), vjust=-0.2)
 ```
+<br />
+<br />
+
 From the above plot, we notice that we have 42,2 % (228 observations) of data with "band" and 57,8% (312 observations) of data with "noband". We believe at this stage that it will not be necessary to balance the data, but we may have to do it later in case some models do not give satisfactory results. 
 
 ### Data composition 
-```{r, results='asis', echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE}
 introduce(bands3_reduced)
+```
+
+```{r, results='asis', echo = FALSE, message = FALSE}
 plot_intro(bands3_reduced)
 ```
 <br />
@@ -52,7 +58,7 @@ We have 5.1% of missing observations which we will look at in more detail just b
 
 It is important to analyze missing data since they can bias the results and interpretations if they are too large in number or distributed in a certain way.
 
-```{r, results='asis', echo = FALSE, message = FALSE}
+```{r, results='asis', echo = FALSE, message = FALSE, warning = FALSE}
 x<-inspect_na(bands3_reduced)
 show_plot(x, col_palette=5)
 ```
@@ -64,12 +70,15 @@ We also notice that there is a tendency to have more missing observations in the
 
 Moreover, we will now make a separate visual analysis of these two types of variables in order to extract their specificities and adapt the rest of our report accordingly. 
 
-### Numerical variables: 
+### Numerical variables
 
 We plot the numerical variables. 
+<br />
+<br />
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, out.width = "50%"}
 plot_histogram(bands3_reduced)
 ```
+<br />
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, out.width = "50%"}
 # Density plots
@@ -94,7 +103,7 @@ We then analyzed the numerical variables in box plots, separating them between t
 
 ### Variables exploration of both categorical and numerical ones 
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.width=12, fig.height=12 ,out.width="50%"}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.width=12, fig.height=12 ,out.width="80%"}
 bands3_reduced %>%
   explore_all(target = band_type)
 ```
@@ -118,7 +127,7 @@ Our first ideas for recommendations based on this graph :
 
 
 ### Variables summaries of quantitative variables 
-```{r, results='asis', echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE}
 quali <- c(29,1:11)
 quanti<-12:28
 mat<-matrix(0, length(quanti), 7)
@@ -144,6 +153,8 @@ bands3_reduced.num<-bands3_reduced[,quanti]
 bands3_reduced.categoric <- bands3_reduced[,quali]
 plot_correlation(bands3_reduced.num, type= 'c', cor_args = list( 'use' = 'complete.obs'))
 ```
+<br />
+
 We see no correlation between variables so there are independant variables except *ink_pct* & *varnish_pct*, which are negatively correlated.
 
 
@@ -195,7 +206,7 @@ at = 1:ncol(boruta_output$ImpHistory), cex.axis = 0.7)
 Thanks to boruta algorithm, we can decide which variable is important or not. For the analysis part, we will keep variables in green (17) and yellow (4) on the graph above. We then need to remove variables between shadowMin and shadowMax: *solvent_type*, *caliper*, *proof_ink*, *plating_tank*, *roughness*, *blade_pressure* and *varnish_pct*.  
 We will also remove *location* as it has more than 30% of missing observations. 
 
-```{r,echo = FALSE, message = FALSE}
+```{r,echo = FALSE, message = FALSE, warning = FALSE}
 bands3_reduced2 <- bands3_reduced%>%
   select(c(1,3,4,6:9,12:13,15,16,20:29))
 ```
