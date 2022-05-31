@@ -299,7 +299,7 @@ We distinguish well the "band" and the "noband" boxplot. Indeed, most of the pro
 ### SVM
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
-model.train <- svm(band_type ~ ., data = bands3_reduced2.tr, method = "C-classification", 
+model.svm <- svm(band_type ~ ., data = bands3_reduced2.tr, method = "C-classification", 
                    kernel = "radial", cost = 10, gamma = 0.1)
 summary(model.train)
 ```
@@ -311,11 +311,11 @@ confusionMatrix(table(test_pred, bands3_reduced2.te$band_type))
 ```
 
 ```{r include=FALSE}
-model.train$index
+model.svm$index
 ```
 
 ```{r include=FALSE}
-model.train$SV
+model.svm$SV
 ```
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
