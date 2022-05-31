@@ -5,5 +5,23 @@ date: "05/05/2022"
 output: html_document
 ---
 
+# Conclusion
+ + What are the variables/parts of the printing process that influence the presence of bands ?
+ + How can we modulate these variables to obtain a combination that optimizes the process?
 
-Dire qu'ils ont fait nimp avec les dernières données alors on a enlevé pour pas biaiser
+
+- grain_screened : choose NO grain screened
+- press_type : Choose MOTTER94 and MOTTER70
+- press : Avoid press 821, 815 and 816
+- ink_temperature
+- paper_type
+- ink_type
+- viscosity
+- press_speed
+- hardener
+
+# Limitations
+
+# Futur Work 
+
+
