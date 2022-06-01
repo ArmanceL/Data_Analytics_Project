@@ -252,7 +252,7 @@ tab4
 Here it says that the accuracy is 79,71%.
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 # Confusion Matrix
-confusionMatrix(data=as.factor(nn4_pred), reference = bands3_reduced.tr$band_type)
+confusionMatrix(data=as.factor(nn4_pred), reference = bands3_reduced2.tr$band_type)
 ```
 
 
