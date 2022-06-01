@@ -321,3 +321,14 @@ model.svm$SV
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 kable(table(true=bands3_reduced2.te$band_type, predicted=predict(model.svm, bands3_reduced2.te, decision.values = TRUE)), caption = "Prediction table.")
 ```
+
+# Evaluation : Model selection
+
+- Random Forest : **81.2%**
+- CART : **70.1%**
+- Naïve Bayes : **70.9%**
+- K-NN : **59,8%** with k=2 and **??** with k=3
+- Neural Network : **79.7%**
+- Logistic Regression : **76.1%**
+- SVM : **76.9**
+- 
