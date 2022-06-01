@@ -5,21 +5,57 @@ date: "05/05/2022"
 output: html_document
 ---
 
-# Deployment
+# Conclusion
 
 We are now able to give some advice to improve the printing process and reduce the presence of bands.
 Our model and especially, the Random Forest and the Logistic Regression gave us very good accuracy arround 80%. 
 
 In our models, certain variables play a crucial role in the banding problem and here there is some recommendations that we can give;
 
-*`grain_screened` : Choose NO grain screened
-*`press_type` : Choose MOTTER94 or MOTTER70
-*`press` : Avoid press 821, 815 and 816
-*`ink_temperature` : Between 15 and 16
-*`paper_type` : Avoid SUPER and prefer COATED 
-*`ink_type` : Choose COATED
-*`press_speed` : Between 2125 and 2375
-*`hardener` : Avoid 1 and 1.5 
+`grain_screened` : **Choose NO grain screened**
+<br />
+--> With grain screened the probability to have banding problem is around 10% higher.
+<br />
+<br />
+`press_type` : **Choose MOTTER94 or MOTTER70**
+<br />
+--> The WOODHOE70 gives 45% more chance to have banding problem.
+<br />
+<br />
+`press` : **Avoid press 821, 815 and 816**
+--> Using these press will increase the banding probability of 50% for 821, 30% for 816 and 70% for 815.
+<br />
+--> The best press are the 813 and the 824.
+<br />
+<br />
+`ink_temperature` : **Between 15 and 16**
+<br />
+--> By setting the temperature outside of this range, there are just as likely to have banding problems as not.
+<br />
+<br />
+`paper_type` : **Avoid SUPER and prefer COATED** 
+<br />
+--> There is probably a problem with the SUPER type because we automatically have presence of band with this paper.
+<br />
+--> With the UNCOATED paper type there is almost as just as likely to have banding problems as not and even more.
+<br />
+<br />
+`ink_type` : **Avoid COVER and Choose COATED**
+<br />
+--> There is probably a problem with the COVER type because we almost at each time automatically have presence of band with this ink.
+<br />
+--> There is also a big risk with the UNCOATED ink type.
+<br />
+<br />
+`press_speed` : **Between 2125 and 2375**
+<br />
+--> For lower values, the probability of having a problem is too high to be profitable.
+<br />
+<br />
+`hardener` : **Avoid 1 and 1.5** 
+<br />
+--> There is a huge pic of banding problem for these values. 
+<br />
 ((- viscosity : pas sur parce qu'on voir rien sur density plot mais il est dans LR ** ))
 
 
@@ -38,5 +74,4 @@ In our models, certain variables play a crucial role in the banding problem and 
 - It could be interesting to compare the origin/country/manufacturer of the components in order to analyze if it has an impact on the presence of grooves in the printing process.
 
 - In connection with our first limitation, it would be wise to do a sensitivity analysis of the variables and their influences with each other.
-
 
