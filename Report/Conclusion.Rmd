@@ -5,23 +5,38 @@ date: "05/05/2022"
 output: html_document
 ---
 
-# Conclusion
- + What are the variables/parts of the printing process that influence the presence of bands ?
- + How can we modulate these variables to obtain a combination that optimizes the process?
+# Deployment
 
+We are now able to give some advice to improve the printing process and reduce the presence of bands.
+Our model and especially, the Random Forest and the Logistic Regression gave us very good accuracy arround 80%. 
 
-- grain_screened : choose NO grain screened
-- press_type : Choose MOTTER94 and MOTTER70
-- press : Avoid press 821, 815 and 816
-- ink_temperature
-- paper_type
-- ink_type
-- viscosity
-- press_speed
-- hardener
+In our models, certain variables play a crucial role in the banding problem and here there is some recommendations that we can give;
+
+*`grain_screened` : Choose NO grain screened
+*`press_type` : Choose MOTTER94 or MOTTER70
+*`press` : Avoid press 821, 815 and 816
+*`ink_temperature` : Between 15 and 16
+*`paper_type` : Avoid SUPER and prefer COATED 
+*`ink_type` : Choose COATED
+*`press_speed` : Between 2125 and 2375
+*`hardener` : Avoid 1 and 1.5 
+((- viscosity : pas sur parce qu'on voir rien sur density plot mais il est dans LR ** ))
+
 
 # Limitations
 
+- We have given recommendations concerning the setting of the compounds themselves and independently of the others, however it is possible that, by modifying it or by fixing it at a certain number, another variable would be significantly impacted. Indeed, we could see in the analysis of correlation (EDA) that some variables seem to be linked between them. For example, *press_speed* is negatively correlated (-0.47) with *roller_durometer*, so if you decide to follow our recommendations by setting the speed of the press between 2125 and 2375, you will have to pay close attention to the evolution of the roller durometer.  
+ 
+- The dataset contains a lot of missing observations, indeed between the dates 1992/04/08 and 1994/10/10, more than 80% of the data are missing. This can make the analysis less precise and bring some bias. To avoid this, we had to remove many observations that might have been useful.
+
+- In order to determine which variables had the most influence on the banding problem, we used many techniques. If these always indicate more or less the same variables, their significance is not the same. Our choice was to make an "average" of these degrees of importance in order to provide you with these recommendations. 
+
+- Peut-être un truc sur NN parce que good accuracy quand même
+
 # Futur Work 
+
+- It could be interesting to compare the origin/country/manufacturer of the components in order to analyze if it has an impact on the presence of grooves in the printing process.
+
+- In connection with our first limitation, it would be wise to do a sensitivity analysis of the variables and their influences with each other.
 
 
