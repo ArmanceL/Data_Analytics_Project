@@ -8,7 +8,6 @@ output: html_document
 ```{r, echo = FALSE, message = FALSE}
 source(here::here("Scripts/SetUp.R"))
 ```
---> faire une phrase qui explique pq pas de balance data
 
 ## Modeling 
 
@@ -69,6 +68,12 @@ bands3_reduced2$band_type <- as.factor(bands3_reduced2$band_type)
 We can now proceed with our analysis.
 
 ### Data splitting and data balancing
+
+<br />
+
+In order to carry out our analysis as accurately as possible, we have split our data set into a training set (**bands3_reduced2.tr**) and a test set (**bands3_reduced2.te**). The training set has 75% of the observations and the test set has the 25% remainder.
+<br />
+As far as data balancing is concerned, we decided not to do it, as "band" obervations and "noband" ones seem well balanced (respectively 42,2 % and 57,8% as we have seen in the EDA). 
 
 ```{r, echo = FALSE, message = FALSE}
 set.seed(123) ## for replication purpose
