@@ -89,7 +89,7 @@ Above are the distributions of the numerical variables, with histograms and dens
 
 <br />
 
-We will then use box-plots to detect outliers on numerical variable and compare the distributions according to their tendency to have the default ("band" or "noband".
+We will then use box-plots to detect outliers on numerical variable and compare the distributions according to their tendency to have the default ("band" or "noband").
 
 <br />
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, out.width = "50%"}
@@ -97,34 +97,6 @@ plot_boxplot(bands3_reduced, by = 'band_type',  ncol = 2,
              title = "Side-by-side boxplots", geom_boxplot_args = list("outlier.color" = "red")) # Boxplot
 ```
 <br />
-
-We then analyzed the numerical variables in box plots, separating them between the "band" and "noband" categories, in order to identify potential differences. This also allows us to realize the presence of some outliers. Indeed, they are very numerous for some variables such as *roughness* *ink_temperature* *blade_pressure* *wax* and *hardener*. 
-
-
-### Variables exploration of both categorical and numerical ones 
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.width=15, fig.height=15 ,out.width="80%"}
-bands3_reduced %>%
-  explore_all(target = band_type)
-```
-<br />
-
-*grain_screened*, *proof_ink*, *paper_type*, *ink_type*, *press_type*, *press*, *location*, *proof_cut*, *ink_temperature*, *roughness*,  *press_speed*, *wax*, *hardener*, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
-
-Our first ideas for recommendations based on this graph : 
-
-- *grain_screened* : do not favour screened grain (more "no_band" without)
-- *paper_type* : don't use "super" paper type, because it always produces band, favor the "coated" one. 
-- *ink_type* : use coated ink
-- *press_type* : use "motter94" press 
-- *press* : avoid 821, 816 and 815 
-- *proof_cut* : position the proof cut at 40 rather than 50 
-- *ink_temperature* : set the temperature to 16
-- *press_speed* : set the speed of the press either above 2200 or below 1500 
-- *hardener* : as there is a band peak when the hardener is at 1, it is better to avoid this value 
-- *roughness* : avoid roughness between 0,6 and 0,8 
-
-
 
 ### Variables summaries of quantitative variables 
 ```{r, echo = FALSE, message = FALSE}
@@ -143,6 +115,34 @@ mat[,7]<-apply(bands3_reduced[,quanti], 2, max, na.rm=TRUE)
 print(round(mat, 2))
 ```
 
+By analyzing the numerical variables in these box plots separated between the "band" and "noband" categories, we can identify potential differences. This allows us to realize the presence of some outliers. Indeed, they are very numerous for some variables such as *roughness* *ink_temperature* *blade_pressure* *wax* and *hardener*. Moreover, by observing the above variables summary with means, medians, minimums, maximums and quantils, we can also identify outliers. 
+
+### Variables exploration of both categorical and numerical ones 
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, figures-side1, fig.width=15, fig.height=15 ,out.width="100%"}
+bands3_reduced %>%
+  explore_all(target = band_type)
+```
+<br />
+
+*grain_screened*, *proof_ink*, *paper_type*, *ink_type*, *press_type*, *press*, *location*, *proof_cut*, *ink_temperature*, *roughness*,  *press_speed*, *wax*, *hardener*, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
+
+Our first ideas for recommendations based on this graph : 
+
+- *grain_screened* : do not favour screened grain as there are more "no_band" without.
+- *paper_type* : don't use "super" paper type, because it always produces band, favor the "coated" one. 
+- *ink_type* : use coated ink.
+- *press_type* : use "motter94" press. 
+- *press* : avoid press number 821, 816 and 815.
+- *proof_cut* : position the proof cut at 40 rather than 50. 
+- *ink_temperature* : set the temperature to 16.
+- *press_speed* : set the speed of the press either above 2200 or below 1500. 
+- *hardener* : as there is a band peak when the hardener is at 1, it is better to avoid this value.
+- *roughness* : avoid roughness between 0,6 and 0,8. 
+
+
+
+
 
 ### Correlation
 
@@ -155,7 +155,8 @@ plot_correlation(bands3_reduced.num, type= 'c', cor_args = list( 'use' = 'comple
 ```
 <br />
 
-We see no correlation between variables so there are independant variables except *ink_pct* & *varnish_pct*, which are negatively correlated.
+We see no correlation between the most of these variables except *ink_pct* & *varnish_pct*, which are negatively correlated (-0,86) and *solvent_pct* and *varnish_pct*, which are also negatively correlated (-0,52).
+The other variables seem independant given the low correlations.
 
 
 
