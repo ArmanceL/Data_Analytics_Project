@@ -26,7 +26,7 @@ show_plot(x, col_palette=2)
 We have 17 numerical variables and 12 character variables. This will help us in the choice of the model for the analysis part.
 Here is an overview of our database: 
 
-```{r, results='asis', echo = FALSE, message = FALSE}
+```{r, results='asis', echo = FALSE, message = FALSE,fig.width=10}
 datatable(bands3_reduced)
 ```
 
