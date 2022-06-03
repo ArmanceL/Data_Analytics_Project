@@ -326,6 +326,64 @@ model.svm$SV
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 kable(table(true=bands3_reduced2.te$band_type, predicted=predict(model.svm, bands3_reduced2.te, decision.values = TRUE)), caption = "Prediction table.")
 ```
+### Unsupervised learning analysis 
+
+#### Cluster Analysis 
+
+```{r echo=FALSE, results='hide',message=FALSE, warning = FALSE}
+# New Dataframe: Select only the numerical values:
+bands3_reduced2.num <- select_if(bands3_reduced2, is.numeric)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+row.names(bands3_reduced2.num) <- paste("M", c(1:nrow(bands3_reduced2.num)), sep="") # row names are used after
+# scaling the data 
+bands3_reduced2.num <- scale(bands3_reduced2.num)
+```
+
+
+#### Agglomerative Hierarchical Clustering (AGNES) with Manhattan distance
+
+```{r echo=FALSE, results='hide',message=FALSE, warning = FALSE, fig.show='hide'}
+library(reshape2)
+set.seed(123)
+# matrix of Manhattan distances 
+bands.d <- dist(bands3_reduced2.num, method = "manhattan") 
+# create a data frame of the distances in long format
+bands.melt <- melt(as.matrix(bands.d))
+ggplot(data = bands.melt, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() 
+#dendrogram using a complete linkage.
+bands.hc <- hclust(bands.d, method = "complete")
+plot(bands.hc, hang=-1)
+#cut the tree to 2 clusters
+plot(bands.hc, hang=-1)
+rect.hclust(bands.hc, k=2)
+bands.clust <- cutree(bands.hc, k=2)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, out.width = "70%", fig.align="center", fig.width=10,fig.height=4}
+#number of clusters
+fviz_nbclust(bands3_reduced2.num,
+             hcut, hc_method="complete",
+             hc_metric="manhattan",
+             method = "silhouette", 
+             k.max = 25, verbose = FALSE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, fig.width=13,fig.height=10, out.width = "70%", fig.align="center"}
+#Interpretation of the clusters
+bands.comp <- data.frame(bands3_reduced2.num, 
+                            Clust=factor(bands.clust)
+                            ,Id=row.names(bands3_reduced2.num))
+bands.df <- melt(bands.comp, id=c("Id", "Clust"))
+ggplot(bands.df, aes(y=value, group=Clust, fill=Clust)) +
+  geom_boxplot() +
+  facet_wrap(~variable, scale="free")
+```
+Using the dendrogram with complete linkage on Manhattan distance with the silhouette method, we identified k=2 as the optimal number of clusters.
+By analyzing this clusters, we can 
+
 
 # Evaluation : Model selection
 
