@@ -84,7 +84,7 @@ bands3_reduced2.tr <- bands3_reduced2[index.tr,] ## the training set
 bands3_reduced2.te <- bands3_reduced2[-index.tr,] ## the test set
 ```
 
-
+<br />
 ### Random forest
 
 ```{r, echo = FALSE, message = FALSE}
@@ -101,6 +101,8 @@ varImpPlot(rf, cex = 0.65)
 print(rf)
 ```
 Here we can see the difference between the descending average of the precision that each variable adds to the model and the descending average of Gini which is a coefficient that shows the contribution of each variable to the homogeneity of nodes and leaves. We notice that some variables have a higher precision importance than their importance based on their Gini score, for our selection of future candidate variables for a simpler model we will make a compromise between these two measures.
+
+So, by making a compromise between the 2 tables, we decided that the variables: "press", "press_speed", "viscosity", "ink_temperature", "press_type" and "hardener", were the most important variables according to the Random Forest model. 
 
 ```{r, echo = FALSE, message = FALSE}
 #importance(rf)
@@ -124,8 +126,12 @@ cat("Accuracy of the test set", Acc_te)
 Then the second table is the confusion matrix of the random forest model on the test set. We now have an accuracy of 0,81197, which is quite good.
 
 
-
+<br />
 ### CART model 
+
+
+The next model we are going to use is the Classification and Regression Trees (CART). It is an algorithm where the target variable is fixed or categorical. The algorithm will then identify the “class” in which the target variable is most likely to be found. Here is the tree we obtained.
+
 
 ```{r include=FALSE}
 set.seed(123456)
@@ -139,6 +145,8 @@ par(pty = "s", mar = c(1, 1, 1, 1))
 plot(bands, cex = 1)
 text(bands, cex = 0.6)
 ```
+
+As this tree seems too big and not so easy to interpret, we decided to prune the tree. 
 
 ```{r, echo = FALSE, message = FALSE}
 printcp(bands)
@@ -156,6 +164,8 @@ cp0 <- cp[rmin, 1]
 cat("size chosen was", cp[rmin, 2] + 1, "\n")
 ```
 
+So, the correct size chosen was 6 and below is the final tree we obtained.
+
 ```{r include=FALSE}
 bands.ct <- prune(bands, cp = 1.01 * cp0)
 summary(bands.ct)
@@ -166,6 +176,10 @@ plot(bands.ct, branch = 0.4, uniform = TRUE)
 text(bands.ct, digits = 3, use.n = TRUE, cex = 0.6)
 ```
 
+This tree is easier to understand and more meaningful. However, it remains vague. Indeed, the first variable used at the top of the tree is "press" but we know that "press" is a variable with 8 categories. But here, the tree does not indicate the categories of the presses predicting the class "band" or "noband".This is also the case for the variable "press_type" which has 4 categories. 
+For the rest of the tree, it seems more useful, and we see that variables used in this tree are quite the same as the ones important according to the Random Forest ("press", press_speed", "viscosity" and "press_type").
+So even if this model does not help us to understand exactly why this or that variable is determinant, it still helps us in the choice of the important variables. 
+
 ```{r, echo = FALSE, message = FALSE}
 bands.pred <- predict(bands.ct, bands3_reduced2.te,type = "class")
 
@@ -175,11 +189,13 @@ kable(table(bands3_reduced2.te$band_type, bands.pred), caption = "Prediction tab
 accuracy <- sum(diag(confMat))/sum(confMat)
 print(accuracy)
 ```
-The accuracy of the CART model is 0.70085, which is less than the accuracy of the Random Forest model. 
+The accuracy of the CART model is 0.70085, which is less than the accuracy of the Random Forest model, but still good and relatively high. 
 
+<br />
 ### Naïve Bayes
 
-We did a Conditional density Plots with 'usekernel=TRUE', which means that ...but 
+The Naive Bayes model is a simple probabilistic classifier, based on Bayes Theorem. We did a Conditional density Plots with 'usekernel=TRUE', which means that density is used to estimate the class conditional densities of metric predictors. We also set a 'laplace' smoothing (laplace=1). We decided to not include the graphs obtained with this function in the report because it is the same as the variables exploration we did in earlier in the EDA (with "explore_all" function). Moreover, those graphs in the EDA are more complete as they show the distribution of each variables by distinguishing "band" and "noband" observations. 
+
 
 ```{r include=FALSE}
 model.nb <- naive_bayes(band_type ~ .,
@@ -204,12 +220,13 @@ nb_train_predict <- predict(model.nb,
 cfm_nb <- confusionMatrix(nb_train_predict, bands3_reduced2.te$band_type)
 cfm_nb                          
 ```
-The accuracy for the train data set is  70.94% (balanced accuracy = 63.44%).
+The accuracy for the train data set is  70.94% (balanced accuracy = 63.44%), which remains good. 
 
-
+<br />
 ### K-NN Model
 
-We use a 2-NN to predict the test set using the training set
+The k Nearest Neighbor Model is a supervised learning method which aimed at classifying a data point into the target class, depending on the features of its nearest data points. Firstly, we used a 2-NN to predict the test set using the training set. 
+
 ```{r,echo = FALSE, warning=FALSE, message=FALSE}
 set.seed(123)
 KNN <- knn3(data=bands3_reduced2.tr, bands3_reduced2.tr$band_type ~ ., k=2)
@@ -219,10 +236,25 @@ TAB <- table(Obs=bands3_reduced2.te$band_type, Pred= BT.te.pred) # confusion mat
 TAB
 (ACC <- sum(diag(TAB))/sum(TAB)) # accuracy 
 ```
-The accuracy is around 59,83%.
+However, we can see that the accuracy is around 59,83%, which is not very good so we decided to then try with a 3-NN to predict the test set.  
 
+```{r,echo = FALSE, warning=FALSE, message=FALSE}
+set.seed(123)
+KNN2 <- knn3(data=bands3_reduced2.tr, bands3_reduced2.tr$band_type ~ ., k=3)
+BT.te.pred2 <- predict(KNN2, newdata = bands3_reduced2.te,type ="class") 
 
+TAB2 <- table(Obs=bands3_reduced2.te$band_type, Pred= BT.te.pred2) # confusion matrix 
+TAB2
+(ACC <- sum(diag(TAB2))/sum(TAB2)) # accuracy 
+```
+
+We therefore obtained an accuracy of 0,7094017 which is much better. 
+
+<br />
 ### Neural Network 
+
+The Neural Network model is a type of nonlinear regression model that takes a set of inputs (explanatory variables), transforms and weights these within a set of hidden units and hidden layers to produce a set of outputs or predictions (also transformed).
+
 
 ```{r include=FALSE}
 set.seed(1)
