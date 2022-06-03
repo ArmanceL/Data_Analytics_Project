@@ -55,7 +55,7 @@ bands3_reduced <- bands3%>%
   select(index)
 ```
 
-After reading and understanding these variables, we realize that some of them are not necessary because they are not complete or/and do not bring any explanatory surplus to the analysis. Nous avons donc décidé de créer une nouvelle base de donnée ne contenant pas ces variables.
+After reading and understanding these variables, we realized that some of them were not necessary because they were not complete or/and did not bring any explanatory surplus to the analysis. We therefore decided to create a new database without these variables.
 
 The new database *bands3_reduced* is now composed of 540 observations and 29 variables.
 
