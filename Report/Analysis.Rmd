@@ -422,7 +422,7 @@ By analyzing this clusters, we can
 - Random Forest : **81.2%**
 - CART : **70.1%**
 - Naïve Bayes : **70.9%**
-- K-NN : **59,8%** with k=2 and **??** with k=3
+- K-NN : **70.9%** 
 - Neural Network : **79.7%**
 - Logistic Regression : **76.1%**
 - SVM : **76.9**
