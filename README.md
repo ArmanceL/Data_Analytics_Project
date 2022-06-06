@@ -6,7 +6,7 @@
 * Nina Bidet
 
 Project’s title : 
-# Soil analysis on 3 different mountain ranges
+# Quality improvement initiatives in rotogravure printing
 
 Our goal is to answer our customer's questions about the presence of grooves in the cylinder at some point during the printing process that ruining his products. 
 
