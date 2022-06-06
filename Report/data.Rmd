@@ -13,7 +13,7 @@ source(here::here("Scripts/SetUp.R"))
 
 In this first part, we will first download the data into R. Then, we will apply the necessary transformations on these data so that they can be correctly exploited for the following analysis. 
 
-The database *bands3* is initially composed of 540 observation and 40 variables.
+The database *bands3* is initially composed of 540 observations and 40 variables.
 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
