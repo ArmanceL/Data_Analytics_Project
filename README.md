@@ -8,20 +8,24 @@
 Project’s title : 
 # Soil analysis on 3 different mountain ranges
 
-This project consists of using machine learning tools and different soil features to predict the type of mountain among 3 different mountains – Sierra de Guaderrama, Central Pyrenees and Central Andes – the firsts two are located in Spain while the last one is located in Chile. 
+Our goal is to answer our customer's questions about the presence of grooves in the cylinder at some point during the printing process that ruining his products. 
+
+- Explanation of the printing process : First, an engraved copper cylinder is rotated in a bath of ink. The excess ink is removed and the paper is pressed against the inked image. Then, the engraved image is removed from the cylinder once the job is complete. Finally, the cylinder in re-used.
+
+- Problematic : Presence of grooves in the cylinders that prevent the printing process from working properly. 
+
+- Our goal : Identify anomalies during the printing process in order to reduce or eliminate these banding defects. 
 
 # Project structure 
 It is divided in 6 files:
-- 'intro.Rmd' contains the introduction of our project 
+- 'Intro.Rmd' contains the introduction of our project 
 - 'data.Rmd' contains a first overview of the data and the data cleaning 
-- 'eda.Rmd' contains the exploratory data analysis of the cleaned dataset
-- 'analysis.Rmd' contains the analysis of our project. 
-  We proceeded to the splitting of the dataset into training and test sets, we balanced the training set and performed several models on it.
-  The models used are : Neural Network, K-Nearest Neighbour, Naïve Bayes and Random Forest. 
-  We also proceeded too a bootstraping method and the replication on some models after bootrstraping. 
-  There, we also performed some clustering methods. 
+- 'EDA.Rmd' contains the exploratory data analysis of the cleaned dataset
+- 'Analysis.Rmd' contains the analysis of our project. 
+  We proceeded to the splitting of the dataset into training and test sets.
+  The models used are : Neural Network, K-Nearest Neighbour, Naïve Bayes, Random Forest, SVM, Logistic Regression. 
   Finally we analysed the scores on each models to determine the best one. 
-- 'concl.Rmd' contains the conclusion and limitations of our project 
+- 'concl.Rmd' contains the conclusion, the limitations and the futur work of our project 
 - 'report.Rmd' is used to put our different parts of the project together. 
 
 # Use our code 
