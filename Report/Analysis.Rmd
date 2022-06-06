@@ -419,6 +419,8 @@ By analyzing this clusters, we can
 
 # Evaluation : Model selection
 
+We used these models to analyze the movements of our variables and their influence on the presence of grooves in the cylinders that prevent the printing process from working properly.  We are now able to choose the best and most explanatory of these models to conclude. For this we will base ourselves on the accuracy that we have already calculated for each of the models but whose summary table is just below.
+
 - Random Forest : **81.2%**
 - CART : **70.1%**
 - Naïve Bayes : **70.9%**
@@ -426,4 +428,9 @@ By analyzing this clusters, we can
 - Neural Network : **79.7%**
 - Logistic Regression : **76.1%**
 - SVM : **76.9**
-- 
+
+The model with the best accuracy is the Random Forest with 81.2%, which is a very good score. It is also important to note that the SVM and Neural Network models and the Logistic Regression model also obtained very good results.
+
+Our choice was therefore obviously made on the random forest but also on the logistic regression. Indeed, in terms of classification, this one is very intuitive (much more than the SVM and NN) and we have therefore considered it appropriate to include it in our deployment. 
+
+Also, it could have been interesting to have a look at the ROC and the residuals. However, we did not have the time to study this and privileged the accuracy analysis. 
