@@ -55,8 +55,7 @@ In our models, certain variables play a crucial role in the banding problem and 
 `hardener` : **Avoid 1 and 1.5** 
 <br />
 --> There is a huge pic of banding problem for these values. 
-<br />
-((- viscosity : pas sur parce qu'on voir rien sur density plot mais il est dans LR ** ))
+
 
 
 # Limitations
@@ -67,7 +66,6 @@ In our models, certain variables play a crucial role in the banding problem and 
 
 - In order to determine which variables had the most influence on the banding problem, we used many techniques. If these always indicate more or less the same variables, their significance is not the same. Our choice was to make an "average" of these degrees of importance in order to provide you with these recommendations. 
 
-- Peut-être un truc sur NN parce que good accuracy quand même
 
 # Futur Work 
 
