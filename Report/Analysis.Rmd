@@ -288,23 +288,24 @@ set.seed(123)
 KNN <- knn3(data=bands3_reduced2.tr, bands3_reduced2.tr$band_type ~ ., k=2)
 BT.te.pred <- predict(KNN, newdata = bands3_reduced2.te,type ="class") 
 
-TAB <- table(Obs=bands3_reduced2.te$band_type, Pred= BT.te.pred) # confusion matrix 
-TAB
-(ACC <- sum(diag(TAB))/sum(TAB)) # accuracy 
+cmKNN2<-confusionMatrix(BT.te.pred, bands3_reduced2.te$band_type)
+
+draw_confusion_matrix(cmKNN2)
+
 ```
-However, we can see that the accuracy is around 59,83%, which is not very good so we decided to then try with a 3-NN to predict the test set.  
+However, we can see that the accuracy is around 59,8%, which is not very good so we decided to then try with a 3-NN to predict the test set.  
 
 ```{r,echo = FALSE, warning=FALSE, message=FALSE}
 set.seed(123)
 KNN2 <- knn3(data=bands3_reduced2.tr, bands3_reduced2.tr$band_type ~ ., k=3)
 BT.te.pred2 <- predict(KNN2, newdata = bands3_reduced2.te,type ="class") 
 
-TAB2 <- table(Obs=bands3_reduced2.te$band_type, Pred= BT.te.pred2) # confusion matrix 
-TAB2
-(ACC <- sum(diag(TAB2))/sum(TAB2)) # accuracy 
+cmKNN3<-confusionMatrix(BT.te.pred2, bands3_reduced2.te$band_type)
+
+draw_confusion_matrix(cmKNN3)
 ```
 
-We therefore obtained an accuracy of 0,7094017 which is much better. 
+We therefore obtained an accuracy of 70,9% which is much better. 
 
 <br />
 ### Neural Network 
