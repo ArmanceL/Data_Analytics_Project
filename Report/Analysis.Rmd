@@ -351,15 +351,19 @@ We distinguish well the "band" and the "noband" boxplot. Indeed, most of the pro
 
 ### SVM
 
+The Support Vector Machines (SVM) is used for the classification problem of the data.
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 model.svm <- svm(band_type ~ ., data = bands3_reduced2.tr, method = "C-classification", 
                    kernel = "radial", cost = 10, gamma = 0.1)
 summary(model.svm)
 ```
-```{r}
+However, this model is often difficult to interpret and is not very intuitive. Indeed, it provides predictions that can be difficult to understand.
+```{r include=FALSE}
 test_pred <- predict(model.svm, newdata = bands3_reduced2.te)
 test_pred
+```
 
+```{r, echo=FALSE}
 confusionMatrix(table(test_pred, bands3_reduced2.te$band_type))
 ```
 
@@ -374,6 +378,11 @@ model.svm$SV
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 kable(table(true=bands3_reduced2.te$band_type, predicted=predict(model.svm, bands3_reduced2.te, decision.values = TRUE)), caption = "Prediction table.")
 ```
+<br />
+The accuracy of this model is 0,7692 and the balanced accuracy is 0,6853. 
+
+<br />
+
 ### Unsupervised learning analysis 
 
 #### Cluster Analysis 
@@ -390,7 +399,7 @@ bands3_reduced2.num <- scale(bands3_reduced2.num)
 ```
 
 
-#### Agglomerative Hierarchical Clustering (AGNES) with Manhattan distance
+We will now realized an agglomerative hierarchical clustering (AGNES) using Manhattn distance. Using the dendrogram with complete linkage on Manhattan distance with the silhouette method, we identified k=2 as the optimal number of clusters.
 
 ```{r echo=FALSE, results='hide',message=FALSE, warning = FALSE, fig.show='hide'}
 library(reshape2)
@@ -429,8 +438,10 @@ ggplot(bands.df, aes(y=value, group=Clust, fill=Clust)) +
   geom_boxplot() +
   facet_wrap(~variable, scale="free")
 ```
-Using the dendrogram with complete linkage on Manhattan distance with the silhouette method, we identified k=2 as the optimal number of clusters.
-By analyzing this clusters, we can 
+
+By analyzing this clusters, we can not distinguish well this two clusters except with the variable "chrome_content" and "anode_space_ratio". Indeed, cluster 1 has a chrome content of 0 and the second cluster has a value much below, of -5. Concerning the anode space ratio, observations of the first cluster have most values between 1 and -1 and for the other one, observations are between -1 and -2. For the other variables, the clusters differ little.
+
+However, this cluster analysis doesn't help us so much and it would have been interesting to know the exact composition of these clusters in order to know if it represents the distinction "band" and "noband".  
 
 
 # Evaluation : Model selection
