@@ -415,10 +415,6 @@ test_pred <- predict(model.svm, newdata = bands3_reduced2.te)
 test_pred
 ```
 
-```{r, echo=FALSE}
-confusionMatrix(table(test_pred, bands3_reduced2.te$band_type))
-```
-
 ```{r include=FALSE}
 model.svm$index
 ```
@@ -427,11 +423,15 @@ model.svm$index
 model.svm$SV
 ```
 
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
-kable(table(true=bands3_reduced2.te$band_type, predicted=predict(model.svm, bands3_reduced2.te, decision.values = TRUE)), caption = "Prediction table.")
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# Confusion Matrix of the Random Forest model on test set
+
+cmSVM<-confusionMatrix(test_pred, bands3_reduced2.te$band_type)
+
+draw_confusion_matrix(cmSVM)
 ```
 <br />
-The accuracy of this model is 0,7692 and the balanced accuracy is 0,6853. 
+The accuracy of this model is 0,769 and the balanced accuracy is 0,6853. 
 
 <br />
 
