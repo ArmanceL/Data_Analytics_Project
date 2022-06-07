@@ -97,15 +97,15 @@ draw_confusion_matrix <- function(cm) {
   
   # create the matrix 
   rect(150, 430, 240, 370, col='#3F97D0')
-  text(195, 435, 'Class1', cex=1.2)
+  text(195, 435, 'band', cex=1.2)
   rect(250, 430, 340, 370, col='#F7AD50')
-  text(295, 435, 'Class2', cex=1.2)
+  text(295, 435, 'noband', cex=1.2)
   text(125, 370, 'Predicted', cex=1.3, srt=90, font=2)
   text(245, 450, 'Actual', cex=1.3, font=2)
   rect(150, 305, 240, 365, col='#F7AD50')
   rect(250, 305, 340, 365, col='#3F97D0')
-  text(140, 400, 'Class1', cex=1.2, srt=90)
-  text(140, 335, 'Class2', cex=1.2, srt=90)
+  text(140, 400, 'band', cex=1.2, srt=90)
+  text(140, 335, 'noband', cex=1.2, srt=90)
   
   # add in the cm results 
   res <- as.numeric(cm$table)
