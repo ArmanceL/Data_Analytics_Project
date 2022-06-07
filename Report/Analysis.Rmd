@@ -103,7 +103,7 @@ print(rf)
 ```
 Here we can see the difference between the descending average of the precision that each variable adds to the model and the descending average of Gini which is a coefficient that shows the contribution of each variable to the homogeneity of nodes and leaves. We notice that some variables have a higher precision importance than their importance based on their Gini score, for our selection of future candidate variables for a simpler model we will make a compromise between these two measures.
 
-So, by making a compromise between the 2 tables, we decided that the variables: "press", "press_speed", "viscosity", "ink_temperature", "press_type" and "hardener", were the most important variables according to the Random Forest model. 
+So, by making a compromise between the 2 tables, we decided that the variables: `press`, `press_speed`, `viscosity`, `ink_temperature`, `press_type` and `hardener`, were the most important variables according to the Random Forest model. 
 
 ```{r, echo = FALSE, message = FALSE}
 #importance(rf)
@@ -178,8 +178,8 @@ plot(bands.ct, branch = 0.4, uniform = TRUE)
 text(bands.ct, digits = 3, use.n = TRUE, cex = 0.6)
 ```
 
-This tree is easier to understand and more meaningful. However, it remains vague. Indeed, the first variable used at the top of the tree is "press" but we know that "press" is a variable with 8 categories. But here, the tree does not indicate the categories of the presses predicting the class "band" or "noband".This is also the case for the variable "press_type" which has 4 categories. 
-For the rest of the tree, it seems more useful, and we see that variables used in this tree are quite the same as the ones important according to the Random Forest ("press", press_speed", "viscosity" and "press_type").
+This tree is easier to understand and more meaningful. However, it remains vague. Indeed, the first variable used at the top of the tree is `press` but we know that "press" is a variable with 8 categories. But here, the tree does not indicate the categories of the presses predicting the class "band" or "noband".This is also the case for the variable `press_type` which has 4 categories. 
+For the rest of the tree, it seems more useful, and we see that variables used in this tree are quite the same as the ones important according to the Random Forest (`press`, `press_speed`, `viscosity` and `press_type`).
 So even if this model does not help us to understand exactly why this or that variable is determinant, it still helps us in the choice of the important variables. 
 
 ```{r, echo = FALSE, message = FALSE}
