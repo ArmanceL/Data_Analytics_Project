@@ -439,7 +439,7 @@ ggplot(bands.df, aes(y=value, group=Clust, fill=Clust)) +
   facet_wrap(~variable, scale="free")
 ```
 
-By analyzing this clusters, we can not distinguish well this two clusters except with the variable "chrome_content" and "anode_space_ratio". Indeed, cluster 1 has a chrome content of 0 and the second cluster has a value much below, of -5. Concerning the anode space ratio, observations of the first cluster have most values between 1 and -1 and for the other one, observations are between -1 and -2. For the other variables, the clusters differ little.
+By analyzing this clusters, we can not distinguish well this two clusters except with the variable `chrome_content` and `anode_space_ratio`. Indeed, cluster 1 has a chrome content of 0 and the second cluster has a value much below, of -5. Concerning the anode space ratio, observations of the first cluster have most values between 1 and -1 and for the other one, observations are between -1 and -2. For the other variables, the clusters differ little.
 
 However, this cluster analysis doesn't help us so much and it would have been interesting to know the exact composition of these clusters in order to know if it represents the distinction "band" and "noband".  
 
