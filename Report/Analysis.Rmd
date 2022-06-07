@@ -85,6 +85,7 @@ bands3_reduced2.te <- bands3_reduced2[-index.tr,] ## the test set
 ```
 
 <br />
+
 ### Random forest
 
 ```{r, echo = FALSE, message = FALSE}
@@ -127,6 +128,7 @@ Then the second table is the confusion matrix of the random forest model on the 
 
 
 <br />
+
 ### CART model 
 
 
@@ -192,6 +194,7 @@ print(accuracy)
 The accuracy of the CART model is 0.70085, which is less than the accuracy of the Random Forest model, but still good and relatively high. 
 
 <br />
+
 ### Naïve Bayes
 
 The Naive Bayes model is a simple probabilistic classifier, based on Bayes Theorem. We did a Conditional density Plots with 'usekernel=TRUE', which means that density is used to estimate the class conditional densities of metric predictors. We also set a 'laplace' smoothing (laplace=1). We decided to not include the graphs obtained with this function in the report because it is the same as the variables exploration we did in earlier in the EDA (with "explore_all" function). Moreover, those graphs in the EDA are more complete as they show the distribution of each variables by distinguishing "band" and "noband" observations. 
@@ -223,6 +226,7 @@ cfm_nb
 The accuracy for the train data set is  70.94% (balanced accuracy = 63.44%), which remains good. 
 
 <br />
+
 ### K-NN Model
 
 The k Nearest Neighbor Model is a supervised learning method which aimed at classifying a data point into the target class, depending on the features of its nearest data points. Firstly, we used a 2-NN to predict the test set using the training set. 
