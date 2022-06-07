@@ -300,6 +300,7 @@ Here it says that the accuracy is 79,71%.
 
 In this part, we will focus on a logistic regression. This model is a regression adapted to binary classification. It is used to predict the category of individuals based on multiple predictor variables. 
 
+Here are the results that are displayed. 
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 glm.fit <- glm(formula = band_type ~ grain_screened + paper_type + ink_type + cylinder_type + press_type + press + cylinder_size + proof_cut + viscosity + ink_temperature + humidity + press_speed + ink_pct + wax + hardener + roller_durometer + current_density + anode_space_ratio + chrome_content, family = binomial, data = bands3_reduced2)
@@ -308,7 +309,9 @@ coef(glm.fit)
 ```
 
 
-Stepwise variable selection with backward selection 
+However, we can see some NA, and using many variables in a regression is not really relevant. This is even more the case when our variables have several categories. That’s why we will realised a stepwise variable selection with backward selection. 
+Here is our final results for this model: 
+
 ```{r include=FALSE}
 glm.sel <- step(glm.fit)
 ```
@@ -317,10 +320,13 @@ glm.sel <- step(glm.fit)
 summary(glm.sel)
 ```
 The stepwise selection has eliminated several variables: "grain_screened", "paper_type", "cylinder_size", "proof_cut", "ink_temperature", "humidity", "hardener", "roller_durometer" and "chrome_content". 
+
 We can see that the probability of having "noband" is: 
-- smaller with a COVER ink_type and higher with an UNCOATED one
+
+- smaller with a COVER ink_type and an UNCOATED one (a little less but nevertheless smaller)
 - smaller with press 815, 816 and 821 
 - increasing a little with press_speed 
+- smaller with ink_pct and viscosity
 
 Predictions and confusion matrix
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
