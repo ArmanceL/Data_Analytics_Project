@@ -337,12 +337,16 @@ TAB6 <- table(Pred=pred.te, Obs=bands3_reduced2.te$band_type)
 ```
 <br />
 The accuracy of the logistic regression is 0.76068. 
+
+Now, we will look at the predicted probabilities per observed label.
+
 <br />
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 boxplot(prob.te~bands3_reduced2.te$band_type)
 ```
 <br />
 <br />
+
 We distinguish well the "band" and the "noband" boxplot. Indeed, most of the probabilities remain above 0,7 for the "noband" observations. However, probabilities are included between 0,1 and 0,8 for the "band" observations, so it's not very helpful. A good model would have two well separated boxplots, well away from 0.5.
 
 ### SVM
