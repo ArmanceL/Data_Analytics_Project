@@ -65,7 +65,7 @@ show_plot(x, col_palette=5)
 <br />
 <br />
 
-Overall, the missing observations are not egregious in our dataset. Nevertheless, we will have to pay attention to the variable *location* in which we still find 28,9% of the columns that is NA. An analysis according to this variable will therefore probably only be slightly representative and useful. 
+Overall, the missing observations are not egregious in our dataset. Nevertheless, we will have to pay attention to the variable `location` in which we still find 28,9% of the columns that is NA. An analysis according to this variable will therefore probably only be slightly representative and useful. 
 We also notice that there is a tendency to have more missing observations in the numerical variables than characteristics one.
 
 Moreover, we will now make a separate visual analysis of these two types of variables in order to extract their specificities and adapt the rest of our report accordingly. 
@@ -85,7 +85,7 @@ plot_histogram(bands3_reduced)
 plot_density(bands3_reduced,
              ggtheme = theme_bw())
 ```
-Above are the distributions of the numerical variables, with histograms and density plots. Some variables, like *ink_temperature* and *press_speed* are normally distributed. Others like *current_density* or *wax* show peaks or trends for a certain value.
+Above are the distributions of the numerical variables, with histograms and density plots. Some variables, like `ink_temperature` and `press_speed` are normally distributed. Others like `current_density` or `wax` show peaks or trends for a certain value.
 
 <br />
 
@@ -115,7 +115,7 @@ mat[,7]<-apply(bands3_reduced[,quanti], 2, max, na.rm=TRUE)
 print(round(mat, 2))
 ```
 
-By analyzing the numerical variables in these box plots separated between the "band" and "noband" categories, we can identify potential differences. This allows us to realize the presence of some outliers. Indeed, they are very numerous for some variables such as *roughness* *ink_temperature* *blade_pressure* *wax* and *hardener*. Moreover, by observing the above variables summary with means, medians, minimums, maximums and quantils, we can also identify outliers. 
+By analyzing the numerical variables in these box plots separated between the "band" and "noband" categories, we can identify potential differences. This allows us to realize the presence of some outliers. Indeed, they are very numerous for some variables such as `roughness` `ink_temperature` `blade_pressure` `wax` and `hardener`. Moreover, by observing the above variables summary with means, medians, minimums, maximums and quantils, we can also identify outliers. 
 
 ### Variables exploration of both categorical and numerical ones 
 
@@ -125,20 +125,20 @@ bands3_reduced %>%
 ```
 <br />
 
-*grain_screened*, *proof_ink*, *paper_type*, *ink_type*, *press_type*, *press*, *location*, *proof_cut*, *ink_temperature*, *roughness*,  *press_speed*, *wax*, *hardener*, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
+`grain_screened`, `proof_ink`, `paper_type`, `ink_type`, `press_type`, `press`, `location`, `proof_cut`, `ink_temperature`, `roughness`,  `press_speed`, `wax`, `hardener`, are the variables for which we observe a greater distinction between the presence of 'band' and 'noband'.
 
 Our first ideas for recommendations based on this graph : 
 
-- *grain_screened* : do not favour screened grain as there are more "no_band" without.
-- *paper_type* : don't use "super" paper type, because it always produces band, favor the "coated" one. 
-- *ink_type* : use coated ink.
-- *press_type* : use "motter94" press. 
-- *press* : avoid press number 821, 816 and 815.
-- *proof_cut* : position the proof cut at 40 rather than 50. 
-- *ink_temperature* : set the temperature to 16.
-- *press_speed* : set the speed of the press either above 2200 or below 1500. 
-- *hardener* : as there is a band peak when the hardener is at 1, it is better to avoid this value.
-- *roughness* : avoid roughness between 0,6 and 0,8. 
+- `grain_screened` : do not favour screened grain as there are more "no_band" without.
+- `paper_type` : don't use "super" paper type, because it always produces band, favor the "coated" one. 
+- `ink_type` : use coated ink.
+- `press_type` : use "motter94" press. 
+- `press` : avoid press number 821, 816 and 815.
+- `proof_cut` : position the proof cut at 40 rather than 50. 
+- `ink_temperature` : set the temperature to 16.
+- `press_speed` : set the speed of the press either above 2200 or below 1500. 
+- `hardener` : as there is a band peak when the hardener is at 1, it is better to avoid this value.
+- `roughness` : avoid roughness between 0,6 and 0,8. 
 
 
 
@@ -155,7 +155,7 @@ plot_correlation(bands3_reduced.num, type= 'c', cor_args = list( 'use' = 'comple
 ```
 <br />
 
-We see no correlation between the most of these variables except *ink_pct* & *varnish_pct*, which are negatively correlated (-0,86) and *solvent_pct* and *varnish_pct*, which are also negatively correlated (-0,52).
+We see no correlation between the most of these variables except `ink_pct` & `varnish_pct`, which are negatively correlated (-0,86) and `solvent_pct` and `varnish_pct`, which are also negatively correlated (-0,52).
 The other variables seem independant given the low correlations.
 
 
@@ -204,8 +204,8 @@ at = 1:ncol(boruta_output$ImpHistory), cex.axis = 0.7)
 ```
 <br />
 <br />
-Thanks to boruta algorithm, we can decide which variable is important or not. For the analysis part, we will keep variables in green (17) and yellow (4) on the graph above. We then need to remove variables between shadowMin and shadowMax: *solvent_type*, *caliper*, *proof_ink*, *plating_tank*, *roughness*, *blade_pressure* and *varnish_pct*.  
-We will also remove *location* as it has more than 30% of missing observations. 
+Thanks to boruta algorithm, we can decide which variable is important or not. For the analysis part, we will keep variables in green (17) and yellow (4) on the graph above. We then need to remove variables between shadowMin and shadowMax: `solvent_type`, `caliper`, `proof_ink`, `plating_tank`, `roughness`, `blade_pressure` and `varnish_pct`.  
+We will also remove `location` as it has more than 30% of missing observations. 
 
 ```{r,echo = FALSE, message = FALSE, warning = FALSE}
 bands3_reduced2 <- bands3_reduced%>%
