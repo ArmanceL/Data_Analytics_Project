@@ -298,6 +298,9 @@ Here it says that the accuracy is 79,71%.
 
 ### Logistic regression
 
+In this part, we will focus on a logistic regression. This model is a regression adapted to binary classification. It is used to predict the category of individuals based on multiple predictor variables. 
+
+
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 glm.fit <- glm(formula = band_type ~ grain_screened + paper_type + ink_type + cylinder_type + press_type + press + cylinder_size + proof_cut + viscosity + ink_temperature + humidity + press_speed + ink_pct + wax + hardener + roller_durometer + current_density + anode_space_ratio + chrome_content, family = binomial, data = bands3_reduced2)
 summary(glm.fit)
