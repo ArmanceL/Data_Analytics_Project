@@ -30,8 +30,8 @@ Our goal is to answer our customer's questions about the presence of grooves in 
 For the rest of the project, the observation "band" will refer to the presence of these grooves, and "noband" will correspond to the absence of those, thus to the good functioning of the cylinder.
 By identifying anomalies, we will direct our advices and indications according to these main axes. 
 
-+What are the variables/parts of the printing process that influence the presence of bands ?
-+How can we modulate these variables to obtain a combination that optimizes the process?
+  1. What are the variables/parts of the printing process that influence the presence of bands ?
+  2. How can we modulate these variables to obtain a combination that optimizes the process?
 
 * __Data understanding__ : In this study, we will use the `bands3.csv` database. We will analyse the available variables and correct possible errors. So we will look at the type, number and distribution of each variable and observation and deal with the many missing values so that they do not bias the analysis. 
 
