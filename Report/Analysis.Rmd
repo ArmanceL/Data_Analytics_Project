@@ -270,10 +270,12 @@ nb_train_predict <- predict(model.nb,
                             bands3_reduced2.te[ , 
                                               names(bands3_reduced2.te)
                                               !="band_type"])
-cfm_nb <- confusionMatrix(nb_train_predict, bands3_reduced2.te$band_type)
-cfm_nb                          
+
+cmNB<-confusionMatrix(nb_train_predict, bands3_reduced2.te$band_type)
+
+draw_confusion_matrix(cmNB)
 ```
-The accuracy for the train data set is  70.94% (balanced accuracy = 63.44%), which remains good. 
+The accuracy for the train data set is  70.9%, which remains good. 
 
 <br />
 
