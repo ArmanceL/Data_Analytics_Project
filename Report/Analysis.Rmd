@@ -337,17 +337,17 @@ The manually written Neural Network model can be found below.
 ```{r include=FALSE}
 set.seed(345)
 nn4 <- nnet(band_type ~ ., data=bands3_reduced2.tr, size=6, decay = 0.4)
-nn4_pred <- predict(nn4, type="class")
-tab4 <- table(Obs=bands3_reduced2.tr$band_type, Pred=nn4_pred) # confusion matrix
-tab4
-(acc4 <- sum(diag(tab4))/sum(tab4)) # accuracy
+nn4_pred <- predict(nn4, newdata = bands3_reduced2.te, type="class")
 ```
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 # Confusion Matrix
-confusionMatrix(data=as.factor(nn4_pred), reference = bands3_reduced2.tr$band_type)
+
+cmNN<-confusionMatrix(as.factor(nn4_pred), bands3_reduced2.te$band_type)
+
+draw_confusion_matrix(cmNN)
 ```
-Here it says that the accuracy is 79,71%.
+Here it says that the accuracy is 74,4%.
 
 ### Logistic regression
 
