@@ -24,21 +24,21 @@ Semester Spring 2022
 
 ## Report organization
 
-* `Business understanding`
+* __Business understanding__
 This work is part of the framework of the "Data Analytics for Decision Making" course. We will work on this project by performing a detailed analysis of the 'bands3' database using the CRISP - DM method.
 Our goal is to answer our customer's questions about the presence of grooves in the cylinder at some point during the printing process that ruining his products. Thus we will be able to give him solutions to increase the efficiency and quality of his business.
 For the rest of the project, the observation "band" will refer to the presence of these grooves, and "noband" will correspond to the absence of those, thus to the good functioning of the cylinder.
 By identifying anomalies, we will direct our advices and indications according to these main axes. 
 
- - What are the variables/parts of the printing process that influence the presence of bands ?
- - How can we modulate these variables to obtain a combination that optimizes the process?
++What are the variables/parts of the printing process that influence the presence of bands ?
++How can we modulate these variables to obtain a combination that optimizes the process?
 
-* `Data understanding` : In this study, we will use the `bands3.csv` database. We will analyse the available variables and correct possible errors. So we will look at the type, number and distribution of each variable and observation and deal with the many missing values so that they do not bias the analysis. 
+* __Data understanding__ : In this study, we will use the `bands3.csv` database. We will analyse the available variables and correct possible errors. So we will look at the type, number and distribution of each variable and observation and deal with the many missing values so that they do not bias the analysis. 
 
-* `Data preparation` : Using the exploratory data analysis (EDA), our goal will be to have an exploitable, consistent and homogeneous data base for the analysis of the models. We will then explore this data to find patterns that may explain the presence of grooves. We will also perform some operations that will allow us to have some clues about the origin of the problem. So in this section we will already have a small overview of the most influential variables.
+* __Data preparation__ : Using the exploratory data analysis (EDA), our goal will be to have an exploitable, consistent and homogeneous data base for the analysis of the models. We will then explore this data to find patterns that may explain the presence of grooves. We will also perform some operations that will allow us to have some clues about the origin of the problem. So in this section we will already have a small overview of the most influential variables.
 
-* `Modeling` : For this part, we will try different models learned during the course. For each of them we will try different tuning parameters and calculate the accuracy. 
+* __Modeling__ : For this part, we will try different models learned during the course. For each of them we will try different tuning parameters and calculate the accuracy. 
 
-* `Evaluation` : The results obtained in the previous section will allow us to choose the most explanatory models depending on the accuracy and its ability to describe the pattern well. We will give the reasons for this as well as the implications for the future.
+* __Evaluation__ : The results obtained in the previous section will allow us to choose the most explanatory models depending on the accuracy and its ability to describe the pattern well. We will give the reasons for this as well as the implications for the future.
 
-* `Conclusion and recommendations` : Finally, we will think about how to use our results in order to give the best advises to our clients concerning their banding problems and how they can reduce them.
+* __Conclusion and recommendations__ : Finally, we will think about how to use our results in order to give the best advises to our clients concerning their banding problems and how they can reduce them.
