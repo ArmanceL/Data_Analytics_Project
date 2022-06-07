@@ -176,7 +176,7 @@ cmRF_test<-confusionMatrix(predte, bands3_reduced2.te$band_type)
 
 draw_confusion_matrix(cmRF_test)
 ```
-Then the second table is the confusion matrix of the random forest model on the test set. We now have an accuracy of 0,81197, which is quite good.
+Then the second table is the confusion matrix of the random forest model on the test set. We now have an accuracy of 0,812, which is quite good.
 
 
 <br />
@@ -237,13 +237,11 @@ So even if this model does not help us to understand exactly why this or that va
 ```{r, echo = FALSE, message = FALSE}
 bands.pred <- predict(bands.ct, bands3_reduced2.te,type = "class")
 
-confMat <- table(bands3_reduced2.te$band_type,bands.pred)
-kable(table(bands3_reduced2.te$band_type, bands.pred), caption = "Prediction table of the CART model")
+cmCART<-confusionMatrix(bands.pred, bands3_reduced2.te$band_type)
 
-accuracy <- sum(diag(confMat))/sum(confMat)
-print(accuracy)
+draw_confusion_matrix(cmCART)
 ```
-The accuracy of the CART model is 0.70085, which is less than the accuracy of the Random Forest model, but still good and relatively high. 
+The accuracy of the CART model is 0.701, which is less than the accuracy of the Random Forest model, but still good and relatively high. 
 
 <br />
 
