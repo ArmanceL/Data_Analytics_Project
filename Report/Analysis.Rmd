@@ -278,9 +278,9 @@ nnetFit <- train(band_type ~ .,
 plot(nnetFit)
 ```
 
-The best Neural Networks parameters would be to choose 6 hidden layers, with a decay of 0.4. 
+Thanks to this graph, we see taht the best Neural Networks parameters would be to choose 6 hidden layers, with a decay of 0.4. 
 
-The manually written Neural Network model 
+The manually written Neural Network model can be found below. 
 ```{r include=FALSE}
 set.seed(345)
 nn4 <- nnet(band_type ~ ., data=bands3_reduced2.tr, size=6, decay = 0.4)
@@ -290,12 +290,11 @@ tab4
 (acc4 <- sum(diag(tab4))/sum(tab4)) # accuracy
 ```
 
-Here it says that the accuracy is 79,71%.
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 # Confusion Matrix
 confusionMatrix(data=as.factor(nn4_pred), reference = bands3_reduced2.tr$band_type)
 ```
-
+Here it says that the accuracy is 79,71%.
 
 ### Logistic regression
 
