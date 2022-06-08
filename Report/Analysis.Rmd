@@ -176,6 +176,9 @@ cmRF_test<-confusionMatrix(predte, bands3_reduced2.te$band_type)
 
 draw_confusion_matrix(cmRF_test)
 ```
+
+<br />
+
 Then the second table is the confusion matrix of the random forest model on the test set. We now have an accuracy of 0,812, which is quite good.
 
 
@@ -241,6 +244,8 @@ cmCART<-confusionMatrix(bands.pred, bands3_reduced2.te$band_type)
 
 draw_confusion_matrix(cmCART)
 ```
+<br />
+
 The accuracy of the CART model is 0.701, which is less than the accuracy of the Random Forest model, but still good and relatively high. 
 
 <br />
@@ -275,6 +280,7 @@ cmNB<-confusionMatrix(nb_train_predict, bands3_reduced2.te$band_type)
 
 draw_confusion_matrix(cmNB)
 ```
+<br />
 The accuracy for the train data set is  70.9%, which remains good. 
 
 <br />
@@ -293,6 +299,7 @@ cmKNN2<-confusionMatrix(BT.te.pred, bands3_reduced2.te$band_type)
 draw_confusion_matrix(cmKNN2)
 
 ```
+<br />
 However, we can see that the accuracy is around 59,8%, which is not very good so we decided to then try with a 3-NN to predict the test set.  
 
 ```{r,echo = FALSE, warning=FALSE, message=FALSE}
@@ -304,10 +311,11 @@ cmKNN3<-confusionMatrix(BT.te.pred2, bands3_reduced2.te$band_type)
 
 draw_confusion_matrix(cmKNN3)
 ```
-
+<br />
 We therefore obtained an accuracy of 70,9% which is much better. 
 
 <br />
+
 ### Neural Network 
 
 The Neural Network model is a type of nonlinear regression model that takes a set of inputs (explanatory variables), transforms and weights these within a set of hidden units and hidden layers to produce a set of outputs or predictions (also transformed).
@@ -347,7 +355,9 @@ cmNN<-confusionMatrix(as.factor(nn4_pred), bands3_reduced2.te$band_type)
 
 draw_confusion_matrix(cmNN)
 ```
+<br />
 Here it says that the accuracy is 74,4%.
+<br />
 
 ### Logistic regression
 
