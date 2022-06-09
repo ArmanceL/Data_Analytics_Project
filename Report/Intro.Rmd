@@ -11,7 +11,7 @@ Teacher : J.Zuber
 Semester Spring 2022
 
 
-### Introduction
+## Introduction
 
 *Context*
 
@@ -22,7 +22,7 @@ Semester Spring 2022
 - Our goal : Identify anomalies during the printing process in order to reduce or eliminate these banding defects. 
 
 
-## Report organization
+### Report organization
 
 * __Business understanding__
 This work is part of the framework of the "Data Analytics for Decision Making" course. We will work on this project by performing a detailed analysis of the 'bands3' database using the CRISP - DM method.
