@@ -8,7 +8,7 @@ output:
 source(here::here("Scripts/SetUp.R"))
 ```
 
-### Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 
 This section is dedicated to understanding the data. We will provide an analysis of the data set using a visual approach in order to summarize their main characteristics.
 
