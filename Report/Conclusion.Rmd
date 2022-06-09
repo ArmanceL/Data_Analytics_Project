@@ -60,7 +60,7 @@ In our models, certain variables play a crucial role in the banding problem and 
 
 # Limitations
 
-- We have given recommendations concerning the setting of the compounds themselves and independently of the others, however it is possible that, by modifying it or by fixing it at a certain number, another variable would be significantly impacted. Indeed, we could see in the analysis of correlation (EDA) that some variables seem to be linked between them. For example, *press_speed* is negatively correlated (-0.47) with *roller_durometer*, so if you decide to follow our recommendations by setting the speed of the press between 2125 and 2375, you will have to pay close attention to the evolution of the roller durometer.  
+- We have given recommendations concerning the setting of the compounds themselves and independently of the others, however it is possible that, by modifying it or by fixing it at a certain number, another variable would be significantly impacted. Indeed, we could see in the analysis of correlation (EDA) that some variables seem to be linked between them. For example, `press_speed` is negatively correlated (-0.47) with `roller_durometer`, so if you decide to follow our recommendations by setting the speed of the press between 2125 and 2375, you will have to pay close attention to the evolution of the roller durometer.  
  
 - The dataset contains a lot of missing observations, indeed between the dates 1992/04/08 and 1994/10/10, more than 80% of the data are missing. This can make the analysis less precise and bring some bias. To avoid this, we had to remove many observations that might have been useful.
 
