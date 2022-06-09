@@ -507,7 +507,7 @@ By analyzing this clusters, we can not distinguish well this two clusters except
 However, this cluster analysis doesn't help us so much and it would have been interesting to know the exact composition of these clusters in order to know if it represents the distinction "band" and "noband".  
 
 
-# Evaluation : Model selection
+## Evaluation : Model selection
 
 We used these models to analyze the movements of our variables and their influence on the presence of grooves in the cylinders that prevent the printing process from working properly.  We are now able to choose the best and most explanatory of these models to conclude. For this we will base ourselves on the accuracy that we have already calculated for each of the models but whose summary table is just below.
 
